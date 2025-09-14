@@ -1,9 +1,28 @@
-import Image from "next/image";
+
+import Navbar from "@/components/Navbar";
+import HeroSection from "../components/homeSection";
+// import UploadSection from "@/components/UploadSection";
+// import AskSection from "@/components/AskSection";
+// import Features from "@/components/Features";
+// import SpecsSection from "@/components/SpecsSection";
+// import Testimonials from "@/components/Testimonials";
+// import Newsletter from "@/components/Newsletter";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      
-    </div>
+    <div className="flex flex-col min-h-screen">
+  {/* Navbar */}
+  <Navbar />
+
+  {/* Main content takes full remaining height */}
+  <main className="flex-1">
+    <HeroSection />
+  </main>
+
+  {/* Footer only shows after scroll */}
+  <Footer />
+</div>
+
   );
 }

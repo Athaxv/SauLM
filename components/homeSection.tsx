@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import LottieAnimation from "@/components/LottieAnimation";
 import { PromptInputBox } from "./ai-prompt-box";
+import { Header1 } from "./ui/header";
 
 const HeroSection = () => {
   const [lottieData, setLottieData] = useState(null);
@@ -24,7 +25,9 @@ const HeroSection = () => {
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat'
       }}
+      
     >
+      <Header1 />
       {/* Background overlay */}
       <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px]" />
 
@@ -66,7 +69,7 @@ const HeroSection = () => {
           </div>
 
           {/* Trust Indicators */}
-          <div className="flex flex-wrap justify-center items-center gap-8 text-sm text-gray-500 pt-8">
+          {/* <div className="flex flex-wrap justify-center items-center gap-8 text-sm text-gray-500 pt-8">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-green-500 rounded-full" />
               Enterprise-grade security
@@ -79,7 +82,7 @@ const HeroSection = () => {
               <div className="w-2 h-2 bg-green-500 rounded-full" />
               Privacy protected
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 

@@ -2,7 +2,6 @@
 import {
   Navbar,
   NavBody,
-  NavItems,
   MobileNav,
   NavbarLogo,
   NavbarButton,
@@ -10,64 +9,179 @@ import {
   MobileNavToggle,
   MobileNavMenu,
 } from "./resizable-navbar";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "./ui/navigation-menu";
 import { useState } from "react";
-import { FileText, Brain, Shield, Zap } from "lucide-react";
+import { FileText, Brain, Shield, Zap, Users, BookOpen, MessageSquare, Mail } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { Header1 } from "./ui/header";
 
 export default function NavbarDemo() {
   const router = useRouter()
-  const navItems = [
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const features = [
     {
-      name: "Features",
-      link: "#features",
-      hasDropdown: true,
-      dropdownItems: [
-        {
-          title: "Document Analysis",
-          description: "AI-powered legal document review",
-          icon: FileText,
-          link: "#document-analysis",
-        },
-        {
-          title: "Smart Insights",
-          description: "Intelligent legal recommendations",
-          icon: Brain,
-          link: "#smart-insights",
-        },
-        {
-          title: "Security & Privacy",
-          description: "Enterprise-grade protection",
-          icon: Shield,
-          link: "#security",
-        },
-        {
-          title: "Fast Processing",
-          description: "Instant analysis results",
-          icon: Zap,
-          link: "#fast-processing",
-        },
-      ],
+      title: "Document Analysis",
+      href: "#document-analysis",
+      description: "AI-powered legal document review and analysis",
+      icon: FileText,
     },
     {
-      name: "Pricing",
-      link: "#pricing",
+      title: "Smart Insights",
+      href: "#smart-insights", 
+      description: "Intelligent legal recommendations and advice",
+      icon: Brain,
     },
     {
-      name: "Contact",
-      link: "#contact",
+      title: "Security & Privacy",
+      href: "#security",
+      description: "Enterprise-grade protection for your documents",
+      icon: Shield,
+    },
+    {
+      title: "Fast Processing",
+      href: "#fast-processing",
+      description: "Instant analysis results and responses",
+      icon: Zap,
     },
   ];
 
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const simpleNavItems = [
+    { name: "About", link: "#specifications" },
+    { name: "Testimonials", link: "#testimonials" },
+    { name: "Contact", link: "#newsletter" },
+  ];
 
   return (
-    <div className="px-3 relative flex justify-center mx-auto w-full">
-       
-      {/* <DummyContent /> */}
+    <Navbar>
+      {/* Desktop Nav */}
+      <NavBody>
+        <NavbarLogo />
+        
+        <NavigationMenu>
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>Features</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <div className="grid gap-3 p-4 w-[400px]">
+                  {features.map((feature) => (
+                    <NavigationMenuLink key={feature.title} href={feature.href}>
+                      <div className="flex items-center gap-3">
+                        <feature.icon className="h-5 w-5 text-red-500" />
+                        <div>
+                          <div className="font-medium">{feature.title}</div>
+                          <div className="text-sm text-gray-600">{feature.description}</div>
+                        </div>
+                      </div>
+                    </NavigationMenuLink>
+                  ))}
+                </div>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+            
+            {simpleNavItems.map((item) => (
+              <NavigationMenuItem key={item.name}>
+                <NavigationMenuLink href={item.link} className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
+                  {item.name}
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            ))}
+          </NavigationMenuList>
+        </NavigationMenu>
 
-      {/* Navbar */}
-    </div>
+        <div className="flex items-center gap-3">
+          <NavbarButton 
+            variant="secondary" 
+            onClick={() => router.push('/signin')}
+          >
+            Sign In
+          </NavbarButton>
+          <NavbarButton 
+            variant="primary"
+            onClick={() => router.push('/signin')}
+          >
+            Get Started
+          </NavbarButton>
+        </div>
+      </NavBody>
+
+      {/* Mobile Nav */}
+      <MobileNav>
+        <MobileNavHeader>
+          <NavbarLogo />
+          <MobileNavToggle 
+            isOpen={isMobileMenuOpen} 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
+          />
+        </MobileNavHeader>
+        <MobileNavMenu 
+          isOpen={isMobileMenuOpen} 
+          onClose={() => setIsMobileMenuOpen(false)}
+        >
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-semibold text-gray-900 mb-2">Features</h3>
+              <div className="space-y-2 pl-4">
+                {features.map((feature) => (
+                  <a
+                    key={feature.title}
+                    href={feature.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="flex items-center gap-3 p-2 rounded-md hover:bg-gray-50"
+                  >
+                    <feature.icon className="h-4 w-4 text-red-500" />
+                    <div>
+                      <div className="text-sm font-medium">{feature.title}</div>
+                      <div className="text-xs text-gray-600">{feature.description}</div>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+            
+            <div className="space-y-2">
+              {simpleNavItems.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.link}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block px-2 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md"
+                >
+                  {item.name}
+                </a>
+              ))}
+            </div>
+          </div>
+          
+          <div className="flex flex-col gap-3 pt-4 border-t border-gray-200">
+            <NavbarButton 
+              variant="secondary" 
+              onClick={() => {
+                router.push('/signin')
+                setIsMobileMenuOpen(false)
+              }}
+            >
+              Sign In
+            </NavbarButton>
+            <NavbarButton 
+              variant="primary"
+              onClick={() => {
+                router.push('/signin')
+                setIsMobileMenuOpen(false)
+              }}
+            >
+              Get Started
+            </NavbarButton>
+          </div>
+        </MobileNavMenu>
+      </MobileNav>
+    </Navbar>
   );
 }
 

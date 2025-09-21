@@ -1,0 +1,39 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -b",
+    "dev": "tsc -b && node ./dist/index.js",
+    "worker": "tsc -b && node ./dist/worker.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@google/genai": "^1.17.0",
+    "@google/generative-ai": "^0.24.1",
+    "@langchain/core": "^0.3.75",
+    "@langchain/google-genai": "^0.2.17",
+    "@langchain/openai": "^0.6.11",
+    "@langchain/qdrant": "^0.1.3",
+    "@types/multer": "^2.0.0",
+    "bullmq": "^5.58.5",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "ioredis": "^5.7.0",
+    "langchain": "^0.3.34",
+    "mammoth": "^1.11.0",
+    "multer": "^2.0.2",
+    "pdf-parse": "^1.1.1",
+    "typescript": "^5.9.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/pdf-parse": "^1.1.5"
+  }
+}

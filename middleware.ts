@@ -1,19 +1,45 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSessionCookie } from "better-auth/cookies";
+import { getToken } from "next-auth/jwt";
 
 export async function middleware(request: NextRequest) {
-	const sessionCookie = getSessionCookie(request);
+	const token = await getToken({ 
+		req: request, 
+		secret: process.env.NEXTAUTH_SECRET 
+	});
 
-    // THIS IS NOT SECURE!
-    // This is the recommended approach to optimistically redirect users
-    // We recommend handling auth checks in each page/route
-	if (!sessionCookie) {
-		return NextResponse.redirect(new URL("/", request.url));
+	const { pathname } = request.nextUrl;
+
+	// Public routes that don't require authentication
+	const publicRoutes = ['/', '/signin', '/api/auth'];
+	const isPublicRoute = publicRoutes.some(route => pathname.startsWith(route));
+
+	// If user is not authenticated and trying to access protected routes
+	if (!token && !isPublicRoute) {
+		return NextResponse.redirect(new URL("/signin", request.url));
+	}
+
+	// If user is authenticated and trying to access signin page, redirect to dashboard
+	if (token && pathname === '/signin') {
+		return NextResponse.redirect(new URL("/dashboard", request.url));
+	}
+
+	// If user is authenticated and on home page, redirect to dashboard
+	if (token && pathname === '/') {
+		return NextResponse.redirect(new URL("/dashboard", request.url));
 	}
 
 	return NextResponse.next();
 }
 
 export const config = {
-	matcher: ["/dashboard"], // Specify the routes the middleware applies to
+	matcher: [
+		/*
+		 * Match all request paths except for the ones starting with:
+		 * - api (API routes)
+		 * - _next/static (static files)
+		 * - _next/image (image optimization files)
+		 * - favicon.ico (favicon file)
+		 */
+		'/((?!api|_next/static|_next/image|favicon.ico).*)',
+	],
 };

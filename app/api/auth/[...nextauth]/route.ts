@@ -4,7 +4,7 @@ import GithubProvider from "next-auth/providers/github";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import {prisma} from "../../../../lib/prisma"; // path to your Prisma client
 
-const handler = NextAuth({
+export const authOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
@@ -17,20 +17,26 @@ const handler = NextAuth({
     }),
   ],
   session: {
-    strategy: "jwt",
+    strategy: "jwt" as const,
   },
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async session({ session, user, token }) {
+    async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
+      // Always redirect to dashboard after login
+      return "/dashboard";
+    },
+    async session({ session, user, token }: any) {
       // Attach id to session for convenience
       if (session?.user && user?.id) session.user.id = user.id;
       return session;
     },
-    async signIn({ user, account, profile, email, credentials }) {
+    async signIn({ user, account, profile, email, credentials }: any) {
       // Optional: restrict sign-in, log extra details, etc.
       return true;
     },
   },
-});
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

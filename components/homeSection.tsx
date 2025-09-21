@@ -27,7 +27,7 @@ const HeroSection = () => {
       }}
       
     >
-      <Header1 />
+      {/* <Header1 /> */}
       {/* Background overlay */}
       <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px]" />
 

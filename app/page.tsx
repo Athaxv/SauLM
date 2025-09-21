@@ -21,7 +21,7 @@ export default function Home() {
   </main>
 
   {/* Footer only shows after scroll */}
-  <Footer />
+  {/* <Footer /> */}
 </div>
 
   );

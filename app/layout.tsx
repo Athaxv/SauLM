@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter, Playfair_Display } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import Footer from "@/components/Footer";
 import Provider from "@/components/provider";
 
 const geistSans = Geist({
@@ -60,6 +61,7 @@ export default function RootLayout({
       >
         <Provider>
           {children}
+          <Footer />
         </Provider>
       </body>
     </html>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 
-import { ChevronLeftIcon, GithubIcon, Grid2x2PlusIcon } from 'lucide-react';
+import { ChevronLeftIcon, GithubIcon } from 'lucide-react';
 import { Particles } from '@/components/ui/particles';
 import { signIn } from 'next-auth/react';
 
@@ -30,41 +30,50 @@ export function MinimalAuthPage() {
 					</a>
 				</Button>
 
-				<div className="mx-auto space-y-4 sm:w-sm">
+				<div className="mx-auto space-y-6 sm:w-sm">
 					<div className="flex items-center gap-2">
-						<Grid2x2PlusIcon className="size-6" />
-						<p className="text-xl font-semibold">SauLM</p>
+						<img src="/newlogo.svg" alt="SauLM Logo" className="h-8 w-8" />
+						<p className="text-xl font-bold bg-gradient-to-r from-red-500 to-pink-600 bg-clip-text text-transparent">SauLM</p>
 					</div>
-					<div className="flex flex-col space-y-1">
-						<h1 className="font-heading text-2xl font-bold tracking-wide">
+					<div className="flex flex-col space-y-2">
+						<h1 className="text-3xl font-bold tracking-tight">
 							Sign In or Join Now!
 						</h1>
 						<p className="text-muted-foreground text-base">
-							login or create your asme account.
+							Login or create your account to get started.
 						</p>
 					</div>
-					<div className="space-y-2">
-						<Button type="button" onClick={() => signIn("google")} size="lg" className="w-full bg-white text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-pink-600 border-2 hover:bg-gray-500 hover:border-pink-600 border-red-500">
-							<GoogleIcon className="me-2 size-4 text-red-500" />
+					<div className="space-y-3 pt-2">
+						<Button
+							type="button"
+							onClick={() => signIn("google")}
+							size="lg"
+							className="w-full bg-gradient-to-r from-red-500 to-pink-600 text-white hover:from-red-600 hover:to-pink-700 shadow-lg transition-all duration-200 font-semibold"
+						>
+							<GoogleIcon className="me-2 size-4" />
 							Continue with Google
 						</Button>
-						<Button type="button" size="lg" className="w-full">
+						<Button
+							type="button"
+							size="lg"
+							className="w-full bg-neutral-900 text-white hover:bg-neutral-800 shadow-lg transition-all duration-200 font-semibold dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-white"
+						>
 							<GithubIcon strokeWidth={2.5} className="me-2 size-4" />
 							Continue with GitHub
 						</Button>
 					</div>
-					<p className="text-muted-foreground mt-8 text-sm">
+					<p className="text-muted-foreground text-sm pt-4">
 						By clicking continue, you agree to our{' '}
 						<a
 							href="#"
-							className="hover:text-primary underline underline-offset-4"
+							className="text-neutral-900 hover:text-pink-600 underline underline-offset-4 transition-colors dark:text-white"
 						>
 							Terms of Service
 						</a>{' '}
 						and{' '}
 						<a
 							href="#"
-							className="hover:text-primary underline underline-offset-4"
+							className="text-neutral-900 hover:text-pink-600 underline underline-offset-4 transition-colors dark:text-white"
 						>
 							Privacy Policy
 						</a>

@@ -18,6 +18,7 @@ cd SaulAI
 ```bash
 # Frontend (Next.js) at repo root
 npm install
+npx prisma generate
 
 # Backend in server/
 cd server && npm i && docker compose up -d

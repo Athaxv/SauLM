@@ -3,6 +3,8 @@ import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { ArrowUp, Paperclip, Square, X, StopCircle, Mic, Globe, BrainCog, FolderCode } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 // Utility function for className merging
 const cn = (...classes: (string | undefined | null | false)[]) => classes.filter(Boolean).join(" ");
@@ -449,6 +451,8 @@ interface PromptInputBoxProps {
 }
 export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref: React.Ref<HTMLDivElement>) => {
   const { onSend = () => {}, isLoading = false, placeholder = "Type your message here...", className } = props;
+  const { data: session, status } = useSession();
+  const router = useRouter();
   const [input, setInput] = React.useState("");
   const [files, setFiles] = React.useState<File[]>([]);
   const [filePreviews, setFilePreviews] = React.useState<{ [key: string]: string }>({});
@@ -539,14 +543,50 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
     return () => document.removeEventListener("paste", handlePaste);
   }, [handlePaste]);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (input.trim() || files.length > 0) {
-      let messagePrefix = "";
-      if (showSearch) messagePrefix = "[Search: ";
-      else if (showThink) messagePrefix = "[Think: ";
-      else if (showCanvas) messagePrefix = "[Canvas: ";
-      const formattedInput = messagePrefix ? `${messagePrefix}${input}]` : input;
-      onSend(formattedInput, files);
+      // Check if user is authenticated
+      if (!session?.user) {
+        // Redirect to signin if not authenticated
+        router.push('/signin');
+        return;
+      }
+
+      try {
+        // Create a new chat session with the message
+        const response = await fetch('/api/chat/sessions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            messages: [
+              {
+                role: 'user',
+                content: input.trim(),
+                timestamp: new Date().toISOString()
+              }
+            ],
+            title: input.trim().substring(0, 30) + (input.trim().length > 30 ? '...' : '')
+          }),
+        });
+
+        if (response.ok) {
+          const newSession = await response.json();
+          // Redirect to dashboard with the new session
+          router.push(`/dashboard?sessionId=${newSession.id}`);
+        } else {
+          console.error('Failed to create chat session');
+          // Fallback: redirect to dashboard anyway
+          router.push('/dashboard');
+        }
+      } catch (error) {
+        console.error('Error creating chat session:', error);
+        // Fallback: redirect to dashboard anyway
+        router.push('/dashboard');
+      }
+
+      // Clear the input
       setInput("");
       setFiles([]);
       setFilePreviews({});
@@ -797,7 +837,7 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
                 isRecording
                   ? "bg-transparent hover:bg-gray-100/50 text-red-500 hover:text-red-400"
                   : hasContent
-                  ? "bg-gray-900 hover:bg-gray-800 text-white shadow-md"
+                  ? "bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white shadow-md hover:shadow-lg"
                   : "bg-transparent hover:bg-gray-100/50 text-gray-500 hover:text-gray-700"
               )}
               onClick={() => {

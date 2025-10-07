@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
 
 @font-face {
   font-family: 'Brockmann';
@@ -12,10 +12,6 @@
 .font-brockmann {
   font-family: var(--font-brockmann);
 }
-
-
-@import "tailwindcss";
-@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -145,3 +141,4 @@
     @apply bg-background text-foreground;
   }
 }
+

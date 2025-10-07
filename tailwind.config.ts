@@ -69,6 +69,8 @@ const config: Config = {
         sans: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
         mono: ["var(--font-geist-mono)", "monospace"],
         brockmann: ["var(--font-brockmann)", "sans-serif"],
+        inter: ["var(--font-inter)", "system-ui", "sans-serif"],
+        "playfair-display": ["var(--font-playfair-display)", "serif"],
       },
       animation: {
         "shiny-text": "shiny-text 8s infinite",

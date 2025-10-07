@@ -1,5 +1,8 @@
 ### SauLM — Persona-based AI Legal Assistant
 
+<img width="1900" height="867" alt="Screenshot 2025-09-21 231206" src="https://github.com/user-attachments/assets/74850625-dbc9-470d-a38e-fd8eacf3b62f" />
+
+
 SauLM is an AI-powered, persona-based legal assistant. Choose a distinct persona to get concise, law-focused guidance tailored to different styles:
 - Harvey Specter
 - Saul Goodman

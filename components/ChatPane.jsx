@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, forwardRef, useImperativeHandle, useRef } from "react"
+import { useState, forwardRef, useImperativeHandle, useRef, useEffect } from "react"
 import { Pencil, RefreshCw, Check, X, Square } from "lucide-react"
 import Message from "./Message"
 import Composer from "./Composer"
@@ -35,6 +35,7 @@ const ChatPane = forwardRef(function ChatPane(
   const [draft, setDraft] = useState("")
   const [busy, setBusy] = useState(false)
   const composerRef = useRef(null)
+  const bottomRef = useRef(null)
 
   useImperativeHandle(
     ref,
@@ -50,6 +51,16 @@ const ChatPane = forwardRef(function ChatPane(
 
   const messages = Array.isArray(conversation.messages) ? conversation.messages : []
   const count = messages.length || conversation.messageCount || 0
+
+  // Auto-scroll to the latest message when messages change or when the assistant is thinking
+  useEffect(() => {
+    // scroll the sentinel into view
+    try {
+      bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" })
+    } catch (e) {
+      // ignore in case of SSR/no-op
+    }
+  }, [messages.length, isThinking])
 
   function startEdit(m) {
     setEditingId(m.id)
@@ -139,6 +150,8 @@ const ChatPane = forwardRef(function ChatPane(
               </div>
             ))}
             {isThinking && <ThinkingMessage onPause={onPauseThinking} selectedModel={selectedModel} />}
+            {/* sentinel element to scroll into view */}
+            <div ref={bottomRef} />
           </>
         )}
       </div>

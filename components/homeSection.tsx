@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import LottieAnimation from "@/components/LottieAnimation";
 import { PromptInputBox } from "./ai-prompt-box";
 import { Header1 } from "./ui/header";
+import AboutSection from "./AboutSection";
 
 const HeroSection = () => {
   const [lottieData, setLottieData] = useState(null);
@@ -17,7 +18,8 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section
+    <>
+      <section
       className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 to-rose-100 overflow-hidden"
       style={{
         backgroundImage: `url('/Header-background.webp')`,
@@ -93,6 +95,8 @@ const HeroSection = () => {
         </div>
       )}
     </section>
+      <AboutSection />
+    </>
   );
 };
 

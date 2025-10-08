@@ -3,8 +3,8 @@
 
 @font-face {
   font-family: 'Brockmann';
-  src: url('/brockmann-medium-webfont.ttf') format('truetype'),
-       url('/brockmann-medium.otf') format('opentype');
+  src: url('/fonts/brockmann-medium-webfont.ttf') format('truetype'),
+       url('/fonts/brockmann-medium.otf') format('opentype');
   font-weight: 500;
   font-style: normal;
   font-display: swap;

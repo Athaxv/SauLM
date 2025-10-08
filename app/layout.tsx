@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter, Playfair_Display } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import Footer from "@/components/Footer";
 import Provider from "@/components/provider";
 
 const geistSans = Geist({
@@ -35,17 +36,18 @@ export const metadata: Metadata = {
 export const brockmann = localFont({
   src: [
     {
-      path: "../assets/fonts/brockmann-medium-webfont.ttf",
+      path: "../public/fonts/brockmann-medium-webfont.ttf",
       weight: "500",
       style: "normal",
     },
     {
-      path: "../assets/fonts/brockmann-medium.otf",
+      path: "../public/fonts/brockmann-medium.otf",
       weight: "500",
       style: "normal",
     },
   ],
   variable: "--font-brockmann",
+  display: "swap",
 });
 
 export default function RootLayout({
@@ -57,9 +59,11 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${brockmann.variable} ${inter.variable} ${playfairDisplay.variable} antialiased`}
+        suppressHydrationWarning={true}
       >
         <Provider>
           {children}
+          <Footer />
         </Provider>
       </body>
     </html>

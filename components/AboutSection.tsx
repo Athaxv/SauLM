@@ -20,15 +20,6 @@ export default function AboutSection() {
 
       {/* Imported hover feature section */}
       <FeaturesSectionWithHoverEffects />
-
-      <div className="mt-16 text-center">
-        <a
-          href="#get-started"
-          className="inline-block rounded-2xl bg-primary text-white px-6 py-3 text-lg font-semibold hover:bg-primary/90 transition-all"
-        >
-          Get Started
-        </a>
-      </div>
     </section>
   );
 }

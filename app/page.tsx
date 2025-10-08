@@ -8,21 +8,23 @@ import HeroSection from "../components/homeSection";
 // import Testimonials from "@/components/Testimonials";
 // import Newsletter from "@/components/Newsletter";
 import Footer from "@/components/Footer";
+import HowItWorks from "@/components/how-it-works/HowItWorks";
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
-  {/* Navbar */}
-  <Navbar />
+      {/* Navbar */}
+      <Navbar />
 
-  {/* Main content takes full remaining height */}
-  <main className="flex-1">
-    <HeroSection />
-  </main>
+      {/* Main content takes full remaining height */}
+      <main className="flex-1">
+        <HeroSection />
+      </main>
+      <HowItWorks />
 
-  {/* Footer only shows after scroll */}
-  {/* <Footer /> */}
-</div>
+      {/* Footer only shows after scroll */}
+      {/* <Footer /> */}
+    </div>
 
   );
 }

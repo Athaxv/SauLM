@@ -42,6 +42,9 @@ Create `./.env.local` for the frontend (Next.js):
 ```bash
 # Neon Postgres
 DATABASE_URL=postgresql://<user>:<password>@<host>/<db>?sslmode=require
+Get it from neonDB (https://console.neon.tech/app/)
+create a new project 
+Get its connection string and copy in the above URL
 
 # NextAuth
 NEXTAUTH_URL=http://localhost:3000

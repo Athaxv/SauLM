@@ -26,10 +26,10 @@ export default function Footer() {
               Product
             </h3>
             <ul className="space-y-1">
-              <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400">Features</a></li>
-              <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400">Use Cases</a></li>
-              <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400">Pricing</a></li>
-              <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400">FAQ</a></li>
+              <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer">Features</a></li>
+              <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer">Use Cases</a></li>
+              <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer">Pricing</a></li>
+              <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer">FAQ</a></li>
             </ul>
           </div>
           <div>
@@ -37,10 +37,10 @@ export default function Footer() {
               Company
             </h3>
             <ul className="space-y-1">
-              <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400">About</a></li>
-              <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400">Blog</a></li>
-              <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400">Careers</a></li>
-              <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400">Contact</a></li>
+              <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer">About</a></li>
+              <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer">Blog</a></li>
+              <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer">Careers</a></li>
+              <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer">Contact</a></li>
             </ul>
           </div>
         </div>
@@ -51,16 +51,16 @@ export default function Footer() {
             Follow us
           </h3>
           <div className="flex gap-4">
-            <a href="#" className="hover:text-blue-600 dark:hover:text-blue-400" aria-label="GitHub">
+            <a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer" aria-label="GitHub">
               <Github size={20} />
             </a>
-            <a href="#" className="hover:text-blue-600 dark:hover:text-blue-400" aria-label="Twitter">
+            <a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer" aria-label="Twitter">
               <Twitter size={20} />
             </a>
-            <a href="#" className="hover:text-blue-600 dark:hover:text-blue-400" aria-label="LinkedIn">
+            <a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer" aria-label="LinkedIn">
               <Linkedin size={20} />
             </a>
-            <a href="#" className="hover:text-blue-600 dark:hover:text-blue-400" aria-label="Mail">
+            <a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer" aria-label="Mail">
               <Mail size={20} />
             </a>
           </div>

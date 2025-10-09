@@ -67,11 +67,11 @@ export default function NavbarDemo() {
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavigationMenuTrigger>Features</NavigationMenuTrigger>
+              <NavigationMenuTrigger className="cursor-pointer">Features</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <div className="grid gap-3 p-4 w-[400px]">
                   {features.map((feature) => (
-                    <NavigationMenuLink key={feature.title} href={feature.href}>
+                    <NavigationMenuLink key={feature.title} href={feature.href} className="cursor-pointer">
                       <div className="flex items-center gap-3">
                         <feature.icon className="h-5 w-5 text-red-500" />
                         <div>
@@ -87,7 +87,7 @@ export default function NavbarDemo() {
             
             {simpleNavItems.map((item) => (
               <NavigationMenuItem key={item.name}>
-                <NavigationMenuLink href={item.link} className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
+                <NavigationMenuLink href={item.link} className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50 cursor-pointer">
                   {item.name}
                 </NavigationMenuLink>
               </NavigationMenuItem>
@@ -133,7 +133,7 @@ export default function NavbarDemo() {
                     key={feature.title}
                     href={feature.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex items-center gap-3 p-2 rounded-md hover:bg-gray-50"
+                    className="flex items-center gap-3 p-2 rounded-md hover:bg-gray-50 cursor-pointer"
                   >
                     <feature.icon className="h-4 w-4 text-red-500" />
                     <div>
@@ -151,7 +151,7 @@ export default function NavbarDemo() {
                   key={item.name}
                   href={item.link}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="block px-2 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md"
+                  className="block px-2 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md cursor-pointer"
                 >
                   {item.name}
                 </a>

@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "../components/homeSection";
 // import UploadSection from "@/components/UploadSection";
 // import AskSection from "@/components/AskSection";
-// import Features from "@/components/Features";
+import Features from "@/components/Features";
 // import SpecsSection from "@/components/SpecsSection";
 // import Testimonials from "@/components/Testimonials";
 // import Newsletter from "@/components/Newsletter";
@@ -21,6 +21,7 @@ export default function Home() {
         <HeroSection />
       </main>
       <HowItWorks />
+      <Features />
 
       {/* Footer only shows after scroll */}
       {/* <Footer /> */}

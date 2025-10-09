@@ -4,6 +4,7 @@ import HeroSection from "../components/homeSection";
 // import UploadSection from "@/components/UploadSection";
 // import AskSection from "@/components/AskSection";
 import Features from "@/components/Features";
+import PersonaShowcase from "@/components/PersonaShowcase";
 // import SpecsSection from "@/components/SpecsSection";
 // import Testimonials from "@/components/Testimonials";
 // import Newsletter from "@/components/Newsletter";
@@ -20,6 +21,7 @@ export default function Home() {
       <main className="flex-1">
         <HeroSection />
       </main>
+      <PersonaShowcase />
       <HowItWorks />
       <Features />
 

@@ -8,68 +8,139 @@ By participating, you agree to uphold a respectful and inclusive environment. Be
 
 
 ## Project Setup
+
+### Prerequisites
+- Node.js 18+ and npm
+- Docker and Docker Compose
+- Git
+
+### Step 1: Initial Setup
 1) Fork the repository and clone your fork
 ```bash
 git clone <your-fork-url>
-cd SaulAI
+cd SauLM
 ```
 
-2) Install dependencies
+### Step 2: Frontend Setup (Next.js)
+
+2.1) Install frontend dependencies
 ```bash
-# Frontend (Next.js) at repo root
 npm install
+```
+
+2.2) Set up the database
+```bash
+# Generate Prisma client
 npx prisma generate
 
-# Backend in server/
-cd server && npm i && docker compose up -d
+# Run database migrations
+npx prisma migrate dev
 ```
 
-3) Create your `.env`
+2.3) Create frontend environment file
+Create `.env.local` in the root directory with the following variables:
+
+**Database Configuration:**
 ```bash
-cp server/.env.example server/.env  # if present, or create it manually
+# Get your connection string from NeonDB: https://console.neon.tech/app/
+# 1. Create a new project at https://console.neon.tech/app/
+# 2. Copy the connection string and paste it below
+DATABASE_URL=postgresql://<user>:<password>@<host>/<db>?sslmode=require
 ```
 
-Required values in `server/.env`:
+**NextAuth Configuration:**
 ```bash
-GOOGLE_API_KEY=your_google_api_key
+# Generate a random secret using: openssl rand -base64 32
+NEXTAUTH_SECRET=your_nextauth_secret_here
+NEXTAUTH_URL=http://localhost:3000
+```
+
+**Google OAuth Setup:**
+```bash
+# Get these from Google Cloud Console: https://console.cloud.google.com/
+# 1. Create a new project or select existing one
+# 2. Enable Google+ API
+# 3. Go to "Credentials" → "Create Credentials" → "OAuth 2.0 Client IDs"
+# 4. Set authorized redirect URI to: http://localhost:3000/api/auth/callback/google
+GOOGLE_CLIENT_ID=your_google_client_id_here
+GOOGLE_CLIENT_SECRET=your_google_client_secret_here
+```
+OPTIONAL
+
+**GitHub OAuth Setup:**
+```bash
+# Get these from GitHub Developer Settings: https://github.com/settings/developers
+# 1. Click "New OAuth App"
+# 2. Set Authorization callback URL to: http://localhost:3000/api/auth/callback/github
+GITHUB_CLIENT_ID=your_github_client_id_here
+GITHUB_CLIENT_SECRET=your_github_client_secret_here
+```
+
+2.4) Start the frontend development server
+```bash
+npm run dev
+```
+Visit http://localhost:3000
+
+### Step 3: Backend Setup (Express.js + Worker)
+
+3.1) Navigate to server directory and install dependencies
+```bash
+cd server
+npm install
+```
+
+3.2) Start Docker services
+```bash
+# Start Qdrant (vector database) and Valkey (Redis alternative)
+docker compose up -d
+
+# Verify services are running
+docker ps
+```
+
+3.3) Create backend environment file
+Create `server/.env` with the following variables:
+
+**Google AI API Configuration:**
+```bash
+# Get your API key from Google AI Studio: https://aistudio.google.com/
+# 1. Go to https://aistudio.google.com/
+# 2. Sign in with your Google account
+# 3. Click "Get API Key" → "Create API Key"
+# 4. Copy the generated key and paste it below
+GOOGLE_API_KEY=your_google_api_key_here
+```
+
+**Qdrant Vector Database Configuration:**
+```bash
+# These are the default values for the local Qdrant instance
+# No changes needed unless you're using a different Qdrant setup
 QDRANT_URL=http://localhost:6333
 QDRANT_COLLECTION=pdf-docs
+```
+
+**Redis/Valkey Configuration (Optional):**
+```bash
+# These are commented out as they use default localhost values
+# Uncomment and modify if using a different Redis setup
 # REDIS_HOST=127.0.0.1
 # REDIS_PORT=6379
 ```
 
-Create `./.env.local` for the frontend (Next.js):
+3.4) Build and start backend services
 ```bash
-# Neon Postgres
-DATABASE_URL=postgresql://<user>:<password>@<host>/<db>?sslmode=require
+# Start API server (in one terminal)
+npm run dev
 
-# NextAuth
-NEXTAUTH_URL=http://localhost:3000
-NEXTAUTH_SECRET=your_nextauth_secret
-
-# Google OAuth
-GOOGLE_CLIENT_ID=your_google_client_id
-GOOGLE_CLIENT_SECRET=your_google_client_secret
 ```
 
-4) Run backend services with Docker Compose
-```bash
-cd server
-docker compose up -d
-cd -
-```
+The API server will run on http://localhost:5000
 
-5) Start the app
-```bash
-# Frontend (Next.js)
-npm run dev # http://localhost:3000
-
-# Backend API (server/)
-cd server && npm run dev # http://localhost:5000
-
-# Worker (server/, separate terminal)
-npm run worker
-```
+### Step 4: Verify Setup
+- Frontend: http://localhost:3000 (should show the application)
+- Backend API: http://localhost:5000 (should return "Hello World")
+- Docker services: `docker ps` should show qdrant and valkey containers running
 
 
 ## Branch Naming: Use the Correct Format

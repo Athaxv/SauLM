@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import LottieAnimation from "@/components/LottieAnimation";
 import { PromptInputBox } from "./ai-prompt-box";
-import { Header1 } from "./ui/header";
+// import { Header1 } from "./ui/header";
 import AboutSection from "./AboutSection";
 
 const HeroSection = () => {

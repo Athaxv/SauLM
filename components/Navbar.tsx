@@ -18,7 +18,7 @@ import {
   NavigationMenuTrigger,
 } from "./ui/navigation-menu";
 import { useState } from "react";
-import { FileText, Brain, Shield, Zap, Users, BookOpen, MessageSquare, Mail } from "lucide-react";
+import { FileText, Brain, Shield, Zap } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function NavbarDemo() {

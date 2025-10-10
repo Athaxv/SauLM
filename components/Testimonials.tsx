@@ -38,8 +38,8 @@ const testimonials: TestimonialProps[] = [{
 const TestimonialCard = ({ content, author, role, backgroundImage }: TestimonialProps) => {
   const avatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(author)}&background=fff&color=333&rounded=true&size=64`;
   return (
-    <div className="bg-white rounded-xl p-6 shadow h-full flex flex-col justify-between">
-      <blockquote className="text-gray-700 text-base leading-relaxed mb-6">“{content}”</blockquote>
+    <div className="bg-white rounded-xl p-6 shadow h-full flex flex-col justify-between overflow-hidden">
+      <blockquote className="text-gray-700 text-base leading-relaxed mb-6 whitespace-normal break-words">“{content}”</blockquote>
       <div className="flex items-center gap-3 mt-4">
         <img src={avatar} alt={author} className="w-12 h-12 rounded-full object-cover" />
         <div>
@@ -62,7 +62,7 @@ const Testimonials = () => {
     return (
       <div className="overflow-hidden py-4">
         <div
-          className="flex gap-6 items-stretch whitespace-nowrap will-change-transform"
+          className="flex gap-6 items-stretch will-change-transform"
           style={{ animation: `marquee ${duration} linear infinite ${dir}` }}
         >
           {children}

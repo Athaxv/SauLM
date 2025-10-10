@@ -54,6 +54,23 @@ const TestimonialCard = ({ content, author, role, backgroundImage }: Testimonial
 const Testimonials = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
 
+  // Duplicate testimonials so the marquee effect is seamless
+  const duplicated = [...testimonials, ...testimonials];
+
+  const Lane = ({ children, duration = "30s", reverse = false }: { children: React.ReactNode; duration?: string; reverse?: boolean }) => {
+    const dir = reverse ? "reverse" : "normal";
+    return (
+      <div className="overflow-hidden py-4">
+        <div
+          className="flex gap-6 items-stretch whitespace-nowrap will-change-transform"
+          style={{ animation: `marquee ${duration} linear infinite ${dir}` }}
+        >
+          {children}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <section id="testimonials" ref={sectionRef} className="py-16 bg-gray-50">
       <div className="max-w-6xl mx-auto px-6">
@@ -63,10 +80,42 @@ const Testimonials = () => {
           <p className="text-gray-600 max-w-2xl mx-auto">See what our customers have to say about us.</p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {testimonials.map((t, i) => (
-            <TestimonialCard key={i} {...t} />
-          ))}
+        {/* Inject keyframes and reduced-motion support inline so styles ship with the component */}
+        <style>{`
+          @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .will-change-transform { animation: none !important; }
+          }
+        `}</style>
+
+        {/* Three lanes with different speeds and directions */}
+        <div className="space-y-4">
+          <Lane duration="36s" reverse={false}>
+            {duplicated.map((t, i) => (
+              <div key={`l1-${i}`} className="w-80 flex-shrink-0">
+                <TestimonialCard {...t} />
+              </div>
+            ))}
+          </Lane>
+
+          <Lane duration="48s" reverse={true}>
+            {duplicated.map((t, i) => (
+              <div key={`l2-${i}`} className="w-80 flex-shrink-0">
+                <TestimonialCard {...t} />
+              </div>
+            ))}
+          </Lane>
+
+          <Lane duration="42s" reverse={false}>
+            {duplicated.map((t, i) => (
+              <div key={`l3-${i}`} className="w-80 flex-shrink-0">
+                <TestimonialCard {...t} />
+              </div>
+            ))}
+          </Lane>
         </div>
       </div>
     </section>

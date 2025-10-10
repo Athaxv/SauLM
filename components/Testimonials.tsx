@@ -35,46 +35,93 @@ const testimonials: TestimonialProps[] = [{
   backgroundImage: "/background-section1.png"
 }];
 
-const TestimonialCard = ({
-  content,
-  author,
-  role,
-  backgroundImage = "/background-section1.png"
-}: TestimonialProps) => {
-  return <div className="bg-cover bg-center rounded-lg p-8 h-full flex flex-col justify-between text-white transform transition-transform duration-300 hover:-translate-y-2 relative overflow-hidden" style={{
-    backgroundImage: `url('${backgroundImage}')`
-  }}>
-      <div className="absolute top-0 right-0 w-24 h-24 bg-white z-10"></div>
-      
-      <div className="relative z-0">
-        <p className="text-xl mb-8 font-medium leading-relaxed pr-20">{`"${content}"`}</p>
+const TestimonialCard = ({ content, author, role, backgroundImage }: TestimonialProps) => {
+  const avatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(author)}&background=fff&color=333&rounded=true&size=64`;
+  return (
+    <div className="bg-white rounded-xl p-6 shadow h-full flex flex-col justify-between overflow-hidden">
+      <blockquote className="text-gray-700 text-base leading-relaxed mb-6 whitespace-normal break-words">“{content}”</blockquote>
+      <div className="flex items-center gap-3 mt-4">
+        <img src={avatar} alt={author} className="w-12 h-12 rounded-full object-cover" />
         <div>
-          <h4 className="font-semibold text-xl">{author}</h4>
-          <p className="text-white/80">{role}</p>
+          <div className="font-semibold text-gray-900">{author}</div>
+          <div className="text-sm text-gray-500">{role}</div>
         </div>
       </div>
-    </div>;
+    </div>
+  );
 };
 
 const Testimonials = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
 
-  return <section className="py-12 bg-white relative" id="testimonials" ref={sectionRef}> {/* Reduced from py-20 */}
-      <div className="section-container opacity-0 animate-on-scroll">
-        <div className="flex items-center gap-4 mb-6">
-          <div className="pulse-chip">
-            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-pulse-500 text-white mr-2">06</span>
-            <span>Testimonials</span>
-          </div>
-        </div>
-        
-        <h2 className="text-5xl font-display font-bold mb-12 text-left">Trusted by users nationwide</h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {testimonials.map((testimonial, index) => <TestimonialCard key={index} content={testimonial.content} author={testimonial.author} role={testimonial.role} gradient={testimonial.gradient} backgroundImage={testimonial.backgroundImage} />)}
+  // Duplicate testimonials so the marquee effect is seamless
+  const duplicated = [...testimonials, ...testimonials];
+
+  const Lane = ({ children, duration = "30s", reverse = false }: { children: React.ReactNode; duration?: string; reverse?: boolean }) => {
+    const dir = reverse ? "reverse" : "normal";
+    return (
+      <div className="overflow-hidden py-4">
+        <div
+          className="flex gap-6 items-stretch will-change-transform"
+          style={{ animation: `marquee ${duration} linear infinite ${dir}` }}
+        >
+          {children}
         </div>
       </div>
-    </section>;
+    );
+  };
+
+  return (
+    <section id="testimonials" ref={sectionRef} className="py-16 bg-gray-50">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="text-center mb-8">
+          <span className="inline-block bg-white rounded-full px-3 py-1 text-sm text-pulse-600 mb-4 font-brockmann">Testimonials</span>
+          <h2 className="text-4xl md:text-5xl font-brockmann font-bold mb-3">
+            <span className="bg-gradient-to-r from-red-500 to-pink-600 bg-clip-text text-transparent">What our users say</span>
+          </h2>
+          <p className="text-gray-600 max-w-2xl mx-auto">See what our customers have to say about us.</p>
+        </div>
+
+        {/* Inject keyframes and reduced-motion support inline so styles ship with the component */}
+        <style>{`
+          @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .will-change-transform { animation: none !important; }
+          }
+        `}</style>
+
+        {/* Three lanes with different speeds and directions */}
+        <div className="space-y-4">
+          <Lane duration="36s" reverse={false}>
+            {duplicated.map((t, i) => (
+              <div key={`l1-${i}`} className="w-80 flex-shrink-0">
+                <TestimonialCard {...t} />
+              </div>
+            ))}
+          </Lane>
+
+          <Lane duration="48s" reverse={true}>
+            {duplicated.map((t, i) => (
+              <div key={`l2-${i}`} className="w-80 flex-shrink-0">
+                <TestimonialCard {...t} />
+              </div>
+            ))}
+          </Lane>
+
+          <Lane duration="42s" reverse={false}>
+            {duplicated.map((t, i) => (
+              <div key={`l3-${i}`} className="w-80 flex-shrink-0">
+                <TestimonialCard {...t} />
+              </div>
+            ))}
+          </Lane>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default Testimonials;

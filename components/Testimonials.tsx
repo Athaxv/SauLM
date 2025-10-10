@@ -75,8 +75,10 @@ const Testimonials = () => {
     <section id="testimonials" ref={sectionRef} className="py-16 bg-gray-50">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-8">
-          <span className="inline-block bg-white rounded-full px-3 py-1 text-sm text-gray-600 mb-4">Testimonials</span>
-          <h2 className="text-4xl md:text-5xl font-bold mb-3">What our users say</h2>
+          <span className="inline-block bg-white rounded-full px-3 py-1 text-sm text-pulse-600 mb-4 font-brockmann">Testimonials</span>
+          <h2 className="text-4xl md:text-5xl font-brockmann font-bold mb-3">
+            <span className="bg-gradient-to-r from-red-500 to-pink-600 bg-clip-text text-transparent">What our users say</span>
+          </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">See what our customers have to say about us.</p>
         </div>
 

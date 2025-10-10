@@ -35,7 +35,7 @@ const testimonials: TestimonialProps[] = [{
   backgroundImage: "/background-section1.png"
 }];
 
-const TestimonialCard = ({ content, author, role, backgroundImage }: TestimonialProps) => {
+const TestimonialCard = ({ content, author, role, backgroundImage: _backgroundImage }: TestimonialProps) => {
   const avatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(author)}&background=fff&color=333&rounded=true&size=64`;
   return (
     <div className="bg-white rounded-xl p-6 shadow h-full flex flex-col justify-between overflow-hidden">

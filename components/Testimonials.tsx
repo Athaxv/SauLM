@@ -38,7 +38,7 @@ const testimonials: TestimonialProps[] = [{
 const TestimonialCard = ({ content, author, role, backgroundImage }: TestimonialProps) => {
   const avatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(author)}&background=fff&color=333&rounded=true&size=64`;
   return (
-    <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow h-full flex flex-col justify-between">
+    <div className="bg-white rounded-xl p-6 shadow h-full flex flex-col justify-between">
       <blockquote className="text-gray-700 text-base leading-relaxed mb-6">“{content}”</blockquote>
       <div className="flex items-center gap-3 mt-4">
         <img src={avatar} alt={author} className="w-12 h-12 rounded-full object-cover" />

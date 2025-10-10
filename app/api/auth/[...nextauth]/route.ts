@@ -4,6 +4,17 @@ import GithubProvider from "next-auth/providers/github";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { type Session, type User, type Account, type Profile } from "next-auth";
 import { type JWT } from "next-auth/jwt";
+
+declare module "next-auth" {
+  interface Session {
+    user: {
+      id: string;
+      name?: string | null;
+      email?: string | null;
+      image?: string | null;
+    };
+  }
+}
 import { prisma } from "../../../../lib/prisma"; // path to your Prisma client
 
 export const authOptions: NextAuthOptions = {

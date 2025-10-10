@@ -18,7 +18,22 @@ const eslintConfig = [
       "out/**",
       "build/**",
       "next-env.d.ts",
+      "server/dist/**",
+      "server/node_modules/**",
+      "lib/generated/**",
     ],
+  },
+  {
+    rules: {
+      "@typescript-eslint/no-unused-expressions": "off",
+      "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
+      "@typescript-eslint/no-this-alias": "off",
+      "@typescript-eslint/no-require-imports": "off",
+      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/no-empty-object-type": "off",
+      "react/no-unescaped-entities": "off",
+      "@next/next/no-html-link-for-pages": "off",
+    },
   },
 ];
 

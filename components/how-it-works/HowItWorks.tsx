@@ -90,7 +90,7 @@ const StepCard: React.FC<StepProps> = ({ icon, title, description, stepNumber, i
   )
 }
 
-export default function HowItWorks(props: Props) {
+export default function HowItWorks(_props: Props) {
   const [selectedModel, setSelectedModel] = useState<ModelOption>({
     id: "saul-goodman",
     name: "Saul Goodman",

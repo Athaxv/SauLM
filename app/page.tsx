@@ -7,7 +7,7 @@ import HeroSection from "../components/homeSection";
 // import SpecsSection from "@/components/SpecsSection";
 // import Testimonials from "@/components/Testimonials";
 // import Newsletter from "@/components/Newsletter";
-import Footer from "@/components/Footer";
+// import Footer from "@/components/Footer";
 import HowItWorks from "@/components/how-it-works/HowItWorks";
 
 export default function Home() {

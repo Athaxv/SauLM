@@ -5,6 +5,7 @@ import { ArrowUp, Paperclip, Square, X, StopCircle, Mic, Globe, BrainCog, Folder
 import { motion, AnimatePresence } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 // Utility function for className merging
 const cn = (...classes: (string | undefined | null | false)[]) => classes.filter(Boolean).join(" ");
@@ -251,7 +252,7 @@ const ImageViewDialog: React.FC<ImageViewDialogProps> = ({ imageUrl, onClose }) 
           transition={{ duration: 0.2, ease: "easeOut" }}
           className="relative bg-white/95 glass-effect rounded-2xl overflow-hidden shadow-2xl border border-gray-200/30"
         >
-          <img
+          <Image
             src={imageUrl}
             alt="Full preview"
             className="w-full max-h-[80vh] object-contain rounded-2xl"
@@ -451,7 +452,7 @@ interface PromptInputBoxProps {
 }
 export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref: React.Ref<HTMLDivElement>) => {
   const { onSend = () => {}, isLoading = false, placeholder = "Type your message here...", className } = props;
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
   const [input, setInput] = React.useState("");
   const [files, setFiles] = React.useState<File[]>([]);
@@ -633,7 +634,7 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
                     className="w-16 h-16 rounded-xl overflow-hidden cursor-pointer transition-all duration-300"
                     onClick={() => openImageModal(filePreviews[file.name])}
                   >
-                    <img
+                    <Image
                       src={filePreviews[file.name]}
                       alt={file.name}
                       className="h-full w-full object-cover"

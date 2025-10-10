@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { motion } from 'motion/react';
+import Image from 'next/image';
 
 export function AuthLogo() {
 	return (
@@ -12,7 +13,7 @@ export function AuthLogo() {
 			className="flex items-center justify-center gap-3"
 		>
 			<div className="relative">
-				<img src="/newlogo.svg" alt="SauLM Logo" className="h-12 w-12 sm:h-14 sm:w-14" />
+				<Image src="/newlogo.svg" alt="SauLM Logo" className="h-12 w-12 sm:h-14 sm:w-14" />
 				<motion.div
 					animate={{
 						scale: [1, 1.2, 1],

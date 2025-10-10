@@ -2,7 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FeaturesSectionWithHoverEffects } from "@/components/feature-section-with-hover-effects";
-import { ArrowRight, Scale, Shield, Zap, Users, Brain, FileText } from "lucide-react";
+import { ArrowRight, Brain } from "lucide-react";
 import { Button } from "./ui/button";
 
 export default function AboutSection() {
@@ -77,7 +77,7 @@ export default function AboutSection() {
             whileTap={{ scale: 0.95 }}
           >
             <Button 
-              size="md"
+              size="lg"
               className="bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white px-8 py-4 text-lg font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 group"
             >
               Get Started with SauLM

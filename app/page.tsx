@@ -1,6 +1,7 @@
 
 import Navbar from "@/components/Navbar";
 import HeroSection from "../components/homeSection";
+import Testimonials from "@/components/Testimonials";
 // import UploadSection from "@/components/UploadSection";
 // import AskSection from "@/components/AskSection";
 // import Features from "@/components/Features";
@@ -18,6 +19,7 @@ export default function Home() {
   {/* Main content takes full remaining height */}
   <main className="flex-1">
     <HeroSection />
+    <Testimonials />
   </main>
 
   {/* Footer only shows after scroll */}

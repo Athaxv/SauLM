@@ -1,61 +1,60 @@
 import { cn } from "@/lib/utils";
 import {
-  IconAdjustmentsBolt,
-  IconCloud,
-  IconCurrencyDollar,
-  IconEaseInOut,
-  IconHeart,
-  IconHelp,
-  IconRouteAltLeft,
-  IconTerminal2,
+  IconFileText,
+  IconScale,
+  IconShield,
+  IconBolt,
+  IconUsers,
+  IconBrain,
+  IconClock,
+  IconLock,
 } from "@tabler/icons-react";
 
 export function FeaturesSectionWithHoverEffects() {
   const features = [
     {
-      title: "Built for developers",
+      title: "Legal Document Analysis",
       description:
-        "Built for engineers, developers, dreamers, thinkers and doers.",
-      icon: <IconTerminal2 />,
+        "AI-powered analysis of contracts, agreements, and legal documents with precision and accuracy.",
+      icon: <IconFileText />,
     },
     {
-      title: "Ease of use",
+      title: "Risk Assessment",
       description:
-        "It's as easy as using an Apple, and as expensive as buying one.",
-      icon: <IconEaseInOut />,
+        "Identify potential risks, liabilities, and critical clauses in your legal documents instantly.",
+      icon: <IconScale />,
     },
     {
-      title: "Pricing like no other",
+      title: "Enterprise Security",
       description:
-        "Our prices are best in the market. No cap, no lock, no credit card required.",
-      icon: <IconCurrencyDollar />,
+        "Bank-level encryption and security protocols to protect your sensitive legal information.",
+      icon: <IconShield />,
     },
     {
-      title: "100% Uptime guarantee",
-      description: "We just cannot be taken down by anyone.",
-      icon: <IconCloud />,
+      title: "Instant Insights",
+      description: "Get comprehensive legal analysis in seconds, not hours of manual review.",
+      icon: <IconBolt />,
     },
     {
-      title: "Multi-tenant Architecture",
-      description: "You can simply share passwords instead of buying new seats",
-      icon: <IconRouteAltLeft />,
+      title: "Team Collaboration",
+      description: "Share insights and collaborate with your legal team seamlessly.",
+      icon: <IconUsers />,
     },
     {
-      title: "24/7 Customer Support",
+      title: "Smart AI Brain",
       description:
-        "We are available a 100% of the time. Atleast our AI Agents are.",
-      icon: <IconHelp />,
+        "Advanced AI trained on legal knowledge to provide accurate, contextual advice.",
+      icon: <IconBrain />,
     },
     {
-      title: "Money back guarantee",
-      description:
-        "If you donot like EveryAI, we will convince you to like us.",
-      icon: <IconAdjustmentsBolt />,
+      title: "24/7 Availability",
+      description: "Round-the-clock legal document analysis whenever you need it.",
+      icon: <IconClock />,
     },
     {
-      title: "And everything else",
-      description: "I just ran out of copy ideas. Accept my sincere apologies",
-      icon: <IconHeart />,
+      title: "Privacy Protected",
+      description: "Your documents remain confidential with zero data sharing policies.",
+      icon: <IconLock />,
     },
   ];
   return (
@@ -96,7 +95,7 @@ const Feature = ({
         {icon}
       </div>
       <div className="text-lg font-bold mb-2 relative z-10 px-10">
-        <div className="absolute left-0 inset-y-0 h-6 group-hover/feature:h-8 w-1 rounded-tr-full rounded-br-full bg-neutral-300 dark:bg-neutral-700 group-hover/feature:bg-blue-500 transition-all duration-200 origin-center" />
+        <div className="absolute left-0 inset-y-0 h-6 group-hover/feature:h-8 w-1 rounded-tr-full rounded-br-full bg-neutral-300 dark:bg-neutral-700 group-hover/feature:bg-pink-500 transition-all duration-200 origin-center" />
         <span className="group-hover/feature:translate-x-2 transition duration-200 inline-block text-neutral-800 dark:text-neutral-100">
           {title}
         </span>

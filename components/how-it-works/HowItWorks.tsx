@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { motion, useInView } from "framer-motion"
 
-type Props = {}
+type Props = object
 
 interface StepProps {
   icon: React.ReactNode
@@ -152,20 +152,20 @@ export default function HowItWorks(props: Props) {
       initial={{ opacity: 0, y: 100 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="relative w-full bg-background py-20 px-4 md:px-8 lg:px-16"
+      className="relative w-full bg-background py-20 md:py-24 lg:py-28 px-4 md:px-8 lg:px-16"
     >
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto relative z-10 px-4 sm:px-6 md:px-8 lg:px-10 pt-2 sm:pt-4 md:pt-6 pb-12 md:pb-16 lg:pb-20">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          className="text-center mb-16"
+          className="text-center mb-12 md:mb-16"
         >
           <h2 className="text-4xl font-bold tracking-tight text-foreground mb-4">
             How <span className="bg-gradient-to-r from-red-500 to-pink-600 bg-clip-text text-transparent">SauLM</span> Works
           </h2>
-          <p className="text-muted-foreground text-lg max-w-3xl mx-auto mb-8">
+          <p className="text-muted-foreground text-lg max-w-3xl mx-auto mb-6 md:mb-8">
             Transform your legal documents into actionable insights with our AI-powered legal assistant
           </p>
 
@@ -178,7 +178,7 @@ export default function HowItWorks(props: Props) {
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="outline"
-                  className="min-w-[200px] justify-between bg-background hover:bg-accent"
+                  className="min-w-[200px] justify-between bg-background hover:bg-accent cursor-pointer"
                 >
                   <div className="flex items-center gap-3">
 
@@ -231,7 +231,7 @@ export default function HowItWorks(props: Props) {
           transition={{ duration: 0.9, delay: 0.2 }}
           className="relative"
         >
-          <div className="hidden lg:grid lg:grid-cols-4 lg:gap-8 lg:items-start">
+          <div className="hidden lg:grid lg:grid-cols-4 lg:gap-10 lg:items-start">
             {steps.map((step, index) => (
               <motion.div
                 key={index}
@@ -251,7 +251,7 @@ export default function HowItWorks(props: Props) {
           </div>
 
           {/* Mobile layout */}
-          <div className="lg:hidden space-y-12">
+          <div className="lg:hidden space-y-10 md:space-y-12">
             {steps.map((step, index) => (
               <motion.div
                 key={index}
@@ -305,7 +305,7 @@ export default function HowItWorks(props: Props) {
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 1 }}
-          className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8"
+          className="mt-16 md:mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8"
         >
           <div className="text-center p-6 bg-card rounded-xl shadow-lg hover:shadow-xl transition-shadow">
             <FileText className="w-12 h-12 text-primary mx-auto mb-4" />
@@ -343,11 +343,11 @@ export default function HowItWorks(props: Props) {
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 1.3 }}
-          className="mt-16 text-center"
+          className="mt-14 md:mt-16 text-center"
         >
           <a
-            href="#get-started"
-            className="inline-block rounded-2xl bg-primary text-white px-6 py-3 text-lg font-semibold hover:bg-primary/90 transition-all"
+            href="/signin"
+            className="inline-block rounded-2xl bg-primary text-white px-6 py-3 text-lg font-semibold hover:bg-primary/90 transition-all cursor-pointer"
           >
             Get Started
           </a>

@@ -107,7 +107,7 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
           key={idx}
           href={item.link}
           onClick={onItemClick}
-          className="transition-colors hover:text-black dark:hover:text-white"
+          className="transition-colors hover:text-black dark:hover:text-white cursor-pointer"
         >
           {item.name}
         </a>
@@ -174,7 +174,7 @@ export const MobileNavToggle = ({ isOpen, onClick }: { isOpen: boolean; onClick:
 
 /* -------------------- Logo -------------------- */
 export const NavbarLogo = () => (
-  <a href="#" className="flex items-center gap-2 text-lg font-semibold text-neutral-900 dark:text-white">
+  <a href="#" className="flex items-center gap-2 text-lg font-semibold text-neutral-900 dark:text-white cursor-pointer">
     <img src="../newlogo.svg" alt="logo" className="h-7 w-7" />
     
     <span className="font-bold bg-gradient-to-r from-red-500 to-pink-600 bg-clip-text text-transparent">SauLM</span>
@@ -197,7 +197,7 @@ export const NavbarButton = ({
   variant?: "primary" | "secondary";
 } & (React.ComponentPropsWithoutRef<"a"> | React.ComponentPropsWithoutRef<"button">)) => {
   const base =
-    "px-4 py-2 text-sm font-semibold rounded-md transition-all duration-200";
+    "px-4 py-2 text-sm font-semibold rounded-md transition-all duration-200 cursor-pointer";
   const variants = {
     primary: "bg-pink-600 text-white hover:bg-pink-700 shadow-lg",
     secondary:

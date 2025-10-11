@@ -1,15 +1,35 @@
 "use client"
 import React, { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
+import { 
+  Brain, 
+  Upload, 
+  Shield, 
+  Zap, 
+  Globe,
+  User,
+  FileCheck,
+  Lock,
+  Clock,
+  Languages
+} from "lucide-react";
 
 interface FeatureCardProps {
   icon: React.ReactNode;
   title: string;
   description: string;
   index: number;
+  highlight?: boolean;
 }
 
-const FeatureCard = ({ icon, title, description, index }: FeatureCardProps) => {
+interface Feature {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  highlight?: boolean;
+}
+
+const FeatureCard = ({ icon, title, description, index, highlight = false }: FeatureCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
@@ -40,23 +60,67 @@ const FeatureCard = ({ icon, title, description, index }: FeatureCardProps) => {
     <div 
       ref={cardRef}
       className={cn(
-        "feature-card glass-card opacity-0 p-4 sm:p-6",
-        "lg:hover:bg-gradient-to-br lg:hover:from-white lg:hover:to-pulse-50",
-        "transition-all duration-300"
+        "group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-6 opacity-0 transition-all duration-500",
+        "hover:border-blue-300 hover:shadow-xl hover:shadow-blue-100/50 hover:-translate-y-2",
+        "before:absolute before:inset-0 before:bg-gradient-to-br before:from-blue-50/0 before:to-purple-50/0",
+        "hover:before:from-blue-50/30 hover:before:to-purple-50/30 before:transition-all before:duration-500",
+        highlight && "ring-2 ring-blue-200 bg-gradient-to-br from-blue-50/30 to-purple-50/20"
       )}
       style={{ animationDelay: `${0.1 * index}s` }}
     >
-      <div className="rounded-full bg-pulse-50 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-pulse-500 mb-4 sm:mb-5">
-        {icon}
+      <div className="relative z-10">
+        <div className={cn(
+          "mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg transition-all duration-300",
+          "bg-gradient-to-br from-blue-100 to-purple-100 text-blue-600",
+          "group-hover:from-blue-500 group-hover:to-purple-500 group-hover:text-white group-hover:scale-110"
+        )}>
+          {icon}
+        </div>
+        <h3 className="mb-3 text-xl font-bold text-gray-900 group-hover:text-blue-700 transition-colors duration-300">
+          {title}
+        </h3>
+        <p className="text-gray-600 leading-relaxed">
+          {description}
+        </p>
       </div>
-      <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">{title}</h3>
-      <p className="text-gray-600 text-sm sm:text-base">{description}</p>
+      
+      {/* Decorative gradient overlay */}
+      <div className="absolute -bottom-2 -right-2 h-24 w-24 rounded-full bg-gradient-to-br from-blue-400/20 to-purple-400/20 blur-2xl transition-all duration-500 group-hover:scale-150 group-hover:opacity-100 opacity-0" />
     </div>
   );
 };
 
 const Features = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
+  
+  const features: Feature[] = [
+    {
+      icon: <Brain className="h-6 w-6" />,
+      title: "Persona-Based Reasoning",
+      description: "Advanced AI that adapts its legal reasoning style to match different legal personas and contexts, providing more nuanced and relevant advice.",
+      highlight: true
+    },
+    {
+      icon: <Upload className="h-6 w-6" />,
+      title: "Document Upload & Retrieval",
+      description: "Seamlessly upload, analyze, and retrieve legal documents with intelligent parsing and contextual understanding of complex legal texts.",
+    },
+    {
+      icon: <Shield className="h-6 w-6" />,
+      title: "Secure Data Handling",
+      description: "Enterprise-grade security with end-to-end encryption, ensuring your sensitive legal documents and conversations remain confidential and protected.",
+    },
+    {
+      icon: <Zap className="h-6 w-6" />,
+      title: "Lightning-Fast Responses",
+      description: "Get instant legal analysis and recommendations powered by optimized AI models, eliminating wait times for critical legal insights.",
+    },
+    {
+      icon: <Globe className="h-6 w-6" />,
+      title: "Multi-Language Support",
+      description: "Future-ready internationalization with support for multiple languages, making legal AI accessible to global users and diverse legal systems.",
+    }
+  ];
   
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -88,58 +152,63 @@ const Features = () => {
   }, []);
   
   return (
-    <section className="py-12 sm:py-16 md:py-20 pb-0 relative bg-gray-50" id="features" ref={sectionRef}>
-      <div className="section-container">
-        <div className="text-center mb-10 sm:mb-16">
-          <div className="pulse-chip mx-auto mb-3 sm:mb-4 opacity-0 fade-in-element">
-            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-pulse-500 text-white mr-2">04</span>
-            <span>Features</span>
+    <section className="py-16 md:py-24 bg-gradient-to-br from-gray-50 to-blue-50/30 relative overflow-hidden" id="features" ref={sectionRef}>
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-400/10 to-purple-400/10 rounded-full blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-purple-400/10 to-blue-400/10 rounded-full blur-3xl" />
+      </div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-700 text-sm font-medium mb-4 opacity-0 fade-in-element">
+            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-500 text-white text-xs mr-2">
+              ✨
+            </span>
+            Core Features
           </div>
-          <h2 className="section-title mb-3 sm:mb-4 opacity-0 fade-in-element">
-            Intelligent Legal AI, <br className="hidden sm:block" />Human-Like Understanding
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 opacity-0 fade-in-element">
+            Intelligent Legal AI,{" "}
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Human-Like Understanding
+            </span>
           </h2>
-          <p className="section-subtitle mx-auto opacity-0 fade-in-element">
-            Built with cutting-edge generative AI to make legal assistance accessible, fast, and trustworthy.
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed opacity-0 fade-in-element">
+            Built with cutting-edge generative AI to make legal assistance accessible, fast, and trustworthy for everyone.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
-          <FeatureCard
-            icon={<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 sm:w-6 sm:h-6"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14 2z"></path><polyline points="14,2 14,8 20,8"></polyline><path d="m8,13 l2,2 l4,-4"></path></svg>}
-            title="Smart Document Analysis"
-            description="Automatically review contracts and agreements, identifying key clauses, risks, and opportunities with AI precision."
-            index={0}
-          />
-          <FeatureCard
-            icon={<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 sm:w-6 sm:h-6"><path d="M8 12h8"></path><path d="M8 18h8"></path><path d="M8 6h8"></path><path d="M3 12h.01"></path><path d="M3 18h.01"></path><path d="M3 6h.01"></path></svg>}
-            title="Clear Clause Explanations"
-            description="Complex legal jargon simplified into plain language that anyone can understand and act upon."
-            index={1}
-          />
-          <FeatureCard
-            icon={<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 sm:w-6 sm:h-6"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M8 9h8"></path><path d="M8 13h6"></path></svg>}
-            title="Interactive Q&A"
-            description="Get instant answers to your legal questions with personalized advice tailored to your specific situation."
-            index={2}
-          />
-          <FeatureCard
-            icon={<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 sm:w-6 sm:h-6"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><path d="M20 8v6"></path><path d="M23 11h-6"></path></svg>}
-            title="Scenario-based Advice"
-            description="Receive personalized legal recommendations based on your jurisdiction, case type, and specific circumstances."
-            index={3}
-          />
-          <FeatureCard
-            icon={<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 sm:w-6 sm:h-6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path><path d="M12 8v8"></path><path d="M8 12h8"></path></svg>}
-            title="Privacy & Security"
-            description="Industry-leading encryption protects your sensitive legal documents and conversations with bank-level security."
-            index={4}
-          />
-          <FeatureCard
-            icon={<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 sm:w-6 sm:h-6"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>}
-            title="Instant Insights"
-            description="Get immediate legal analysis and recommendations without waiting for appointments or lengthy consultations."
-            index={5}
-          />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-6">
+          {features.map((feature, index) => (
+            <FeatureCard
+              key={index}
+              icon={feature.icon}
+              title={feature.title}
+              description={feature.description}
+              index={index}
+              highlight={feature.highlight}
+            />
+          ))}
+        </div>
+        
+        {/* Additional visual elements */}
+        <div className="mt-16 text-center">
+          <div className="inline-flex items-center gap-2 text-sm text-gray-500 opacity-0 fade-in-element">
+            <div className="flex items-center gap-1">
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+              <span>Always learning</span>
+            </div>
+            <span>•</span>
+            <div className="flex items-center gap-1">
+              <Lock className="h-3 w-3" />
+              <span>SOC 2 Compliant</span>
+            </div>
+            <span>•</span>
+            <div className="flex items-center gap-1">
+              <Clock className="h-3 w-3" />
+              <span>24/7 Availability</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>

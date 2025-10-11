@@ -5,22 +5,30 @@ export function timeAgo(date) {
   const now = new Date();
   const sec = Math.max(1, Math.floor((now - d) / 1000));
   const rtf = new Intl.RelativeTimeFormat(undefined, { numeric: "auto" });
-  const ranges = [
-    [60, "seconds"], [3600, "minutes"], [86400, "hours"],
-    [604800, "days"], [2629800, "weeks"], [31557600, "months"],
+  const unitDivisors = {
+    seconds: 1,
+    minutes: 60,
+    hours: 3600,
+    days: 86400,
+    weeks: 604800,
+    months: 2629800,
+    years: 31557600
+  }
+    const ranges = [
+    { limit: 60, unit: "seconds" },
+    { limit: 3600, unit: "minutes" },
+    { limit: 86400, unit: "hours" },
+    { limit: 604800, unit: "days" },
+    { limit: 2629800, unit: "weeks" },
+    { limit: 31557600, unit: "months" }
   ];
+
   let unit = "years";
-  let value = -Math.floor(sec / 31557600);
-  for (const [limit, u] of ranges) {
+  let value = -Math.floor(sec / unitDivisors.years);
+  for (const { limit, unit: u } of ranges) {
     if (sec < limit) {
       unit = u;
-      const div =
-        unit === "seconds" ? 1 :
-        limit / (unit === "minutes" ? 60 :
-        unit === "hours" ? 3600 :
-        unit === "days" ? 86400 :
-        unit === "weeks" ? 604800 : 2629800);
-      value = -Math.floor(sec / div);
+      value = -Math.floor(sec / unitDivisors[u]);
       break;
     }
   }

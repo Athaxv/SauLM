@@ -2,6 +2,7 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "../components/homeSection";
 import Testimonials from "@/components/Testimonials";
+import ContactSection from "@/components/ContactSection";
 // import UploadSection from "@/components/UploadSection";
 // import AskSection from "@/components/AskSection";
 // import Features from "@/components/Features";
@@ -21,6 +22,8 @@ export default function Home() {
       <main className="flex-1">
         <HeroSection />
         <Testimonials />
+        <ContactSection />
+
       </main>
       <HowItWorks />
 

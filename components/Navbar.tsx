@@ -123,6 +123,7 @@ export default function NavbarDemo() {
         <MobileNavMenu 
           isOpen={isMobileMenuOpen} 
           onClose={() => setIsMobileMenuOpen(false)}
+          className="bg-white"
         >
           <div className="space-y-4">
             <div>

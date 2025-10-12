@@ -1,10 +1,16 @@
-"use client"
+"use client";
 
-import { useState, forwardRef, useImperativeHandle, useRef, useEffect } from "react"
-import { Pencil, RefreshCw, Check, X, Square } from "lucide-react"
-import Message from "./Message"
-import Composer from "./Composer"
-import { cls, timeAgo } from "./utils"
+import {
+  useState,
+  forwardRef,
+  useImperativeHandle,
+  useRef,
+  useEffect,
+} from "react";
+import { Pencil, RefreshCw, Check, X, Square } from "lucide-react";
+import Message from "./Message";
+import Composer from "./Composer";
+import { cls, timeAgo } from "./utils";
 
 function ThinkingMessage({ onPause, selectedModel }) {
   return (
@@ -24,68 +30,89 @@ function ThinkingMessage({ onPause, selectedModel }) {
         </button>
       </div>
     </Message>
-  )
+  );
 }
 
 const ChatPane = forwardRef(function ChatPane(
-  { conversation, onSend, onEditMessage, onResendMessage, isThinking, onPauseThinking, selectedModel, user, modelOptions, onModelChange, onFileUploaded, uploadedFiles },
-  ref,
+  {
+    conversation,
+    onSend,
+    onEditMessage,
+    onResendMessage,
+    isThinking,
+    onPauseThinking,
+    selectedModel,
+    user,
+    modelOptions,
+    onModelChange,
+    onFileUploaded,
+    uploadedFiles,
+  },
+  ref
 ) {
-  const [editingId, setEditingId] = useState(null)
-  const [draft, setDraft] = useState("")
-  const [busy, setBusy] = useState(false)
-  const composerRef = useRef(null)
-  const bottomRef = useRef(null)
+  const [editingId, setEditingId] = useState(null);
+  const [draft, setDraft] = useState("");
+  const [busy, setBusy] = useState(false);
+  const composerRef = useRef(null);
+  const bottomRef = useRef(null);
 
   useImperativeHandle(
     ref,
     () => ({
       insertTemplate: (templateContent) => {
-        composerRef.current?.insertTemplate(templateContent)
+        composerRef.current?.insertTemplate(templateContent);
       },
     }),
-    [],
-  )
-
-  if (!conversation) return null
-
-  const messages = Array.isArray(conversation.messages) ? conversation.messages : []
-  const count = messages.length || conversation.messageCount || 0
+    []
+  );
 
   // Auto-scroll to the latest message when messages change or when the assistant is thinking
+  // Note: Hooks must not be conditional; run this effect every render with guarded usage.
   useEffect(() => {
     try {
-      bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" })
+      bottomRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
     } catch (e) {
       // no-op on SSR or if ref unavailable
     }
-  }, [messages.length, isThinking])
+  }, [conversation?.messages?.length ?? 0, isThinking]);
+
+  if (!conversation) return null;
+
+  const messages = Array.isArray(conversation.messages)
+    ? conversation.messages
+    : [];
+  const count = messages.length || conversation.messageCount || 0;
 
   function startEdit(m) {
-    setEditingId(m.id)
-    setDraft(m.content)
+    setEditingId(m.id);
+    setDraft(m.content);
   }
   function cancelEdit() {
-    setEditingId(null)
-    setDraft("")
+    setEditingId(null);
+    setDraft("");
   }
   function saveEdit() {
-    if (!editingId) return
-    onEditMessage?.(editingId, draft)
-    cancelEdit()
+    if (!editingId) return;
+    onEditMessage?.(editingId, draft);
+    cancelEdit();
   }
   function saveAndResend() {
-    if (!editingId) return
-    onEditMessage?.(editingId, draft)
-    onResendMessage?.(editingId)
-    cancelEdit()
+    if (!editingId) return;
+    onEditMessage?.(editingId, draft);
+    onResendMessage?.(editingId);
+    cancelEdit();
   }
 
   return (
     <div className="flex h-full min-h-0 flex-1 flex-col">
       <div className="flex-1 space-y-5 overflow-y-auto px-4 py-6 sm:px-8">
         <div className="mb-2 text-3xl font-serif tracking-tight sm:text-4xl md:text-5xl">
-          <span className="block leading-[1.05] font-sans text-2xl">{conversation.title}</span>
+          <span className="block leading-[1.05] font-sans text-2xl">
+            {conversation.title}
+          </span>
         </div>
         <div className="mb-4 text-sm text-gray-600">
           Updated {timeAgo(conversation.updatedAt)} · {count} messages
@@ -100,7 +127,12 @@ const ChatPane = forwardRef(function ChatPane(
             {messages.map((m) => (
               <div key={m.id} className="space-y-2">
                 {editingId === m.id ? (
-                  <div className={cls("rounded-2xl border p-2", "border-red-200 bg-white")}>
+                  <div
+                    className={cls(
+                      "rounded-2xl border p-2",
+                      "border-red-200 bg-white"
+                    )}
+                  >
                     <textarea
                       value={draft}
                       onChange={(e) => setDraft(e.target.value)}
@@ -129,11 +161,18 @@ const ChatPane = forwardRef(function ChatPane(
                     </div>
                   </div>
                 ) : (
-                  <Message role={m.role} selectedModel={selectedModel} user={user}>
+                  <Message
+                    role={m.role}
+                    selectedModel={selectedModel}
+                    user={user}
+                  >
                     <div className="whitespace-pre-wrap">{m.content}</div>
                     {m.role === "user" && (
                       <div className="mt-1 flex gap-2 text-[11px] text-gray-500">
-                        <button className="inline-flex items-center gap-1 hover:underline hover:text-gray-700 transition-colors" onClick={() => startEdit(m)}>
+                        <button
+                          className="inline-flex items-center gap-1 hover:underline hover:text-gray-700 transition-colors"
+                          onClick={() => startEdit(m)}
+                        >
                           <Pencil className="h-3.5 w-3.5" /> Edit
                         </button>
                         <button
@@ -148,7 +187,12 @@ const ChatPane = forwardRef(function ChatPane(
                 )}
               </div>
             ))}
-            {isThinking && <ThinkingMessage onPause={onPauseThinking} selectedModel={selectedModel} />}
+            {isThinking && (
+              <ThinkingMessage
+                onPause={onPauseThinking}
+                selectedModel={selectedModel}
+              />
+            )}
             {/* sentinel element to scroll into view */}
             <div ref={bottomRef} />
           </>
@@ -158,10 +202,10 @@ const ChatPane = forwardRef(function ChatPane(
       <Composer
         ref={composerRef}
         onSend={async (text) => {
-          if (!text.trim()) return
-          setBusy(true)
-          await onSend?.(text)
-          setBusy(false)
+          if (!text.trim()) return;
+          setBusy(true);
+          await onSend?.(text);
+          setBusy(false);
         }}
         busy={busy}
         selectedModel={selectedModel}
@@ -171,7 +215,7 @@ const ChatPane = forwardRef(function ChatPane(
         uploadedFiles={uploadedFiles}
       />
     </div>
-  )
-})
+  );
+});
 
-export default ChatPane
+export default ChatPane;

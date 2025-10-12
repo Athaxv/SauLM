@@ -1,5 +1,5 @@
-"use client"
-import { motion, AnimatePresence } from "framer-motion"
+"use client";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   PanelLeftClose,
   PanelLeftOpen,
@@ -13,14 +13,14 @@ import {
   Shield,
   CreditCard,
   HelpCircle,
-} from "lucide-react"
-import SidebarSection from "./SidebarSection"
-import ConversationRow from "./ConversationRow"
-import SearchModal from "./SearchModal"
-import SettingsPopover from "./SettingsPopover"
-import { cls } from "./utils"
-import { useState } from "react"
-import { Button } from "./ui/button"
+} from "lucide-react";
+import SidebarSection from "./SidebarSection";
+import ConversationRow from "./ConversationRow";
+import SearchModal from "./SearchModal";
+import SettingsPopover from "./SettingsPopover";
+import { cls } from "./utils";
+import { useState } from "react";
+import { Button } from "./ui/button";
 import {
   Dialog,
   DialogContent,
@@ -28,9 +28,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "./ui/dialog"
-import { signOut } from "next-auth/react"
-import { useRouter } from "next/navigation"
+} from "./ui/dialog";
+import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function Sidebar({
   open,
@@ -50,17 +50,21 @@ export default function Sidebar({
   setSidebarCollapsed = () => {},
   user = null, // Add user prop
 }) {
-  const [showSearchModal, setShowSearchModal] = useState(false)
-  const router = useRouter()
+  const [showSearchModal, setShowSearchModal] = useState(false);
+  const [signingOut, setSigningOut] = useState(false);
+  const router = useRouter();
 
   const handleLogout = async () => {
     try {
-      await signOut({ redirect: false })
-      router.push('/')
+      setSigningOut(true);
+      await signOut({ redirect: false });
+      router.push("/");
     } catch (error) {
-      console.error('Logout error:', error)
+      console.error("Logout error:", error);
+    } finally {
+      setSigningOut(false);
     }
-  }
+  };
 
   if (sidebarCollapsed) {
     return (
@@ -110,7 +114,7 @@ export default function Sidebar({
           </div>
         </div>
       </motion.aside>
-    )
+    );
   }
 
   return (
@@ -138,7 +142,7 @@ export default function Sidebar({
             transition={{ type: "spring", stiffness: 260, damping: 28 }}
             className={cls(
               "z-50 flex h-full w-80 shrink-0 flex-col border-r border-gray-200 bg-white",
-              "fixed inset-y-0 left-0 md:static md:translate-x-0",
+              "fixed inset-y-0 left-0 md:static md:translate-x-0"
             )}
           >
             <div className="flex items-center gap-2 border-b border-gray-200 px-3 py-3">
@@ -234,19 +238,36 @@ export default function Sidebar({
               <div className="mt-2">
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button 
-                      variant="ghost" 
+                    <Button
+                      variant="ghost"
                       className="w-full justify-start gap-3 rounded-xl p-2 h-auto hover:bg-gray-100"
                     >
-                      <div className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-red-500 to-pink-500 text-xs font-bold text-white">
-                        {user?.name ? user.name.charAt(0).toUpperCase() : user?.email ? user.email.charAt(0).toUpperCase() : 'U'}
-                      </div>
+                      {user?.image ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={user.image}
+                          alt={user?.name || user?.email || 'User avatar'}
+                          className="h-8 w-8 rounded-full object-cover"
+                          onError={(e) => {
+                            e.currentTarget.style.display = 'none'
+                            // fallback to initials will render automatically
+                          }}
+                        />
+                      ) : (
+                        <div className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-red-500 to-pink-500 text-xs font-bold text-white">
+                          {user?.name
+                            ? user.name.charAt(0).toUpperCase()
+                            : user?.email
+                            ? user.email.charAt(0).toUpperCase()
+                            : "U"}
+                        </div>
+                      )}
                       <div className="min-w-0 text-left">
                         <div className="truncate text-sm font-medium text-gray-900">
-                          {user?.name || user?.email || 'User'}
+                          {user?.name || user?.email || "User"}
                         </div>
                         <div className="truncate text-xs text-gray-500">
-                          {user?.email ? 'Pro workspace' : 'Guest'}
+                          {user?.email ? "Pro workspace" : "Guest"}
                         </div>
                       </div>
                     </Button>
@@ -264,37 +285,66 @@ export default function Sidebar({
                     <div className="space-y-4">
                       {/* User Info */}
                       <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
-                        <div className="grid h-12 w-12 place-items-center rounded-full bg-gradient-to-br from-red-500 to-pink-500 text-sm font-bold text-white">
-                          {user?.name ? user.name.charAt(0).toUpperCase() : user?.email ? user.email.charAt(0).toUpperCase() : 'U'}
-                        </div>
+                        {user?.image ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={user.image}
+                            alt={user?.name || user?.email || 'User avatar'}
+                            className="h-12 w-12 rounded-full object-cover"
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none'
+                            }}
+                          />
+                        ) : (
+                          <div className="grid h-12 w-12 place-items-center rounded-full bg-gradient-to-br from-red-500 to-pink-500 text-sm font-bold text-white">
+                            {user?.name
+                              ? user.name.charAt(0).toUpperCase()
+                              : user?.email
+                              ? user.email.charAt(0).toUpperCase()
+                              : "U"}
+                          </div>
+                        )}
                         <div>
                           <div className="font-medium text-gray-900">
-                            {user?.name || user?.email || 'User'}
+                            {user?.name || user?.email || "User"}
                           </div>
                           <div className="text-sm text-gray-500">
-                            {user?.email || 'No email'}
+                            {user?.email || "No email"}
                           </div>
                           <div className="text-xs text-gray-400">
-                            {user?.email ? 'Pro workspace' : 'Guest'}
+                            {user?.email ? "Pro workspace" : "Guest"}
                           </div>
                         </div>
                       </div>
 
                       {/* Profile Options */}
                       <div className="space-y-2">
-                        <Button variant="ghost" className="w-full justify-start gap-2">
+                        <Button
+                          variant="ghost"
+                          className="w-full justify-start gap-2"
+                          onClick={() => router.push("/settings/edit-profile")}
+                        >
                           <User className="h-4 w-4" />
                           Edit Profile
                         </Button>
-                        <Button variant="ghost" className="w-full justify-start gap-2">
+                        <Button
+                          variant="ghost"
+                          className="w-full justify-start gap-2"
+                        >
                           <Shield className="h-4 w-4" />
                           Privacy & Security
                         </Button>
-                        <Button variant="ghost" className="w-full justify-start gap-2">
+                        <Button
+                          variant="ghost"
+                          className="w-full justify-start gap-2"
+                        >
                           <CreditCard className="h-4 w-4" />
                           Billing & Subscription
                         </Button>
-                        <Button variant="ghost" className="w-full justify-start gap-2">
+                        <Button
+                          variant="ghost"
+                          className="w-full justify-start gap-2"
+                        >
                           <HelpCircle className="h-4 w-4" />
                           Help & Support
                         </Button>
@@ -302,13 +352,23 @@ export default function Sidebar({
 
                       {/* Logout Button */}
                       <div className="pt-4 border-t">
-                        <Button 
-                          variant="destructive" 
+                        <Button
+                          variant="destructive"
                           className="w-full gap-2"
                           onClick={handleLogout}
+                          disabled={signingOut}
                         >
-                          <LogOut className="h-4 w-4" />
-                          Sign Out
+                          {signingOut ? (
+                            <>
+                              <span className="animate-spin inline-block h-4 w-4 border-2 border-current border-t-transparent rounded-full" aria-hidden />
+                              <span>Signing out…</span>
+                            </>
+                          ) : (
+                            <>
+                              <LogOut className="h-4 w-4" />
+                              <span>Sign Out</span>
+                            </>
+                          )}
                         </Button>
                       </div>
                     </div>
@@ -330,5 +390,5 @@ export default function Sidebar({
         createNewChat={createNewChat}
       />
     </>
-  )
+  );
 }

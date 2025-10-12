@@ -23,10 +23,7 @@ export async function middleware(request: NextRequest) {
 		return NextResponse.redirect(new URL("/dashboard", request.url));
 	}
 
-	// If user is authenticated and on home page, redirect to dashboard
-	if (token && pathname === '/') {
-		return NextResponse.redirect(new URL("/dashboard", request.url));
-	}
+		// Allow authenticated users to visit home ("/") so post-signout redirects land correctly
 
 	return NextResponse.next();
 }

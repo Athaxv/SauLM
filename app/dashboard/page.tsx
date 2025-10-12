@@ -1,4 +1,5 @@
 import React from 'react'
+export const dynamic = 'force-dynamic'
 import AIAssistantUI from "../../components/AIAssistantUI"
 
 function Dashboard() {

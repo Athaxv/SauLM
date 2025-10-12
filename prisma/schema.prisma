@@ -25,6 +25,7 @@ model User {
   username      String?
   password      String?
   avatar        String?
+  sessionInvalidatedAt DateTime?
   // Relations
   documents     Document[]
   chatSessions  ChatSession[]

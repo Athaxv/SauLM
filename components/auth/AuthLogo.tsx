@@ -12,8 +12,8 @@ export function AuthLogo() {
 			transition={{ duration: 0.5, delay: 0.3 }}
 			className="flex items-center justify-center gap-3"
 		>
-			<div className="relative">
-				<Image src="/newlogo.svg" alt="SauLM Logo" className="h-12 w-12 sm:h-14 sm:w-14" />
+			<div className="relative h-12 w-12 sm:h-14 sm:w-14">
+				<Image src="/newlogo.svg" alt="SauLM Logo" fill className="object-contain" />
 				<motion.div
 					animate={{
 						scale: [1, 1.2, 1],

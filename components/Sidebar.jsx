@@ -246,10 +246,10 @@ export default function Sidebar({
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
                           src={user.image}
-                          alt={user?.name || user?.email || 'User avatar'}
+                          alt={user?.name || user?.email || "User avatar"}
                           className="h-8 w-8 rounded-full object-cover"
                           onError={(e) => {
-                            e.currentTarget.style.display = 'none'
+                            e.currentTarget.style.display = "none";
                             // fallback to initials will render automatically
                           }}
                         />
@@ -289,10 +289,10 @@ export default function Sidebar({
                           // eslint-disable-next-line @next/next/no-img-element
                           <img
                             src={user.image}
-                            alt={user?.name || user?.email || 'User avatar'}
+                            alt={user?.name || user?.email || "User avatar"}
                             className="h-12 w-12 rounded-full object-cover"
                             onError={(e) => {
-                              e.currentTarget.style.display = 'none'
+                              e.currentTarget.style.display = "none";
                             }}
                           />
                         ) : (
@@ -360,7 +360,10 @@ export default function Sidebar({
                         >
                           {signingOut ? (
                             <>
-                              <span className="animate-spin inline-block h-4 w-4 border-2 border-current border-t-transparent rounded-full" aria-hidden />
+                              <span
+                                className="animate-spin inline-block h-4 w-4 border-2 border-current border-t-transparent rounded-full"
+                                aria-hidden
+                              />
                               <span>Signing out…</span>
                             </>
                           ) : (

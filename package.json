@@ -23,6 +23,7 @@
     "@radix-ui/react-slot": "^1.2.3",
     "@radix-ui/react-tooltip": "^1.2.8",
     "@tabler/icons-react": "^3.35.0",
+    "all": "^0.0.0",
     "better-auth": "^1.3.9",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

@@ -43,8 +43,10 @@ const StepCard: React.FC<StepProps> = ({ icon, title, description, stepNumber, i
     <div className="relative flex flex-col items-center text-center group">
       {/* Step Number Badge */}
       <div className="relative mb-6">
-        <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:scale-110 transition-transform duration-300">
-          {icon}
+        <div className="w-16 h-16 bg-white/80 backdrop-blur-md border-2 border-red-500 rounded-full flex items-center justify-center text-red-500 font-bold text-lg shadow-[0_4px_14px_rgba(239,68,68,0.4)] group-hover:scale-110 group-hover:shadow-[0_6px_20px_rgba(239,68,68,0.5)] transition-all duration-300" style={{ perspective: '1000px' }}>
+          <div className="transform group-hover:rotateY-12 group-hover:rotateX-12 transition-transform duration-500" style={{ transformStyle: 'preserve-3d' }}>
+            {icon}
+          </div>
         </div>
         <div className="absolute -top-2 -right-2 w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white text-xs font-bold">
           {stepNumber}
@@ -307,8 +309,10 @@ export default function HowItWorks(_props: Props) {
           transition={{ duration: 0.7, delay: 1 }}
           className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8"
         >
-          <div className="text-center p-6 bg-card rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-            <FileText className="w-12 h-12 text-primary mx-auto mb-4" />
+          <div className="text-center p-6 bg-card rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-white/70 hover:backdrop-blur-xl hover:border hover:border-red-200/60 group/card">
+            <div className="transform transition-all duration-500 group-hover/card:scale-110 group-hover/card:rotateY-12" style={{ perspective: '1000px', transformStyle: 'preserve-3d' }}>
+              <FileText className="w-12 h-12 text-primary mx-auto mb-4" />
+            </div>
             <h3 className="text-lg font-semibold text-foreground mb-2">
               Document Analysis
             </h3>
@@ -317,8 +321,10 @@ export default function HowItWorks(_props: Props) {
             </p>
           </div>
 
-          <div className="text-center p-6 bg-card rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-            <Zap className="w-12 h-12 text-primary mx-auto mb-4" />
+          <div className="text-center p-6 bg-card rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-white/70 hover:backdrop-blur-xl hover:border hover:border-red-200/60 group/card">
+            <div className="transform transition-all duration-500 group-hover/card:scale-110 group-hover/card:rotateY-12" style={{ perspective: '1000px', transformStyle: 'preserve-3d' }}>
+              <Zap className="w-12 h-12 text-primary mx-auto mb-4" />
+            </div>
             <h3 className="text-lg font-semibold text-foreground mb-2">
               Instant Responses
             </h3>
@@ -327,8 +333,10 @@ export default function HowItWorks(_props: Props) {
             </p>
           </div>
 
-          <div className="text-center p-6 bg-card rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-            <Target className="w-12 h-12 text-primary mx-auto mb-4" />
+          <div className="text-center p-6 bg-card rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-white/70 hover:backdrop-blur-xl hover:border hover:border-red-200/60 group/card">
+            <div className="transform transition-all duration-500 group-hover/card:scale-110 group-hover/card:rotateY-12" style={{ perspective: '1000px', transformStyle: 'preserve-3d' }}>
+              <Target className="w-12 h-12 text-primary mx-auto mb-4" />
+            </div>
             <h3 className="text-lg font-semibold text-foreground mb-2">
               Specialized Expertise
             </h3>

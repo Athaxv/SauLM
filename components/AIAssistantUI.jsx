@@ -1,12 +1,15 @@
 "use client"
 
 import React, { useEffect, useMemo, useRef, useState, useCallback } from "react"
+import { useTheme } from "next-themes"
 import Sidebar from "./Sidebar"
 import ChatPane from "./ChatPane"
+import ThemeToggle from "./ThemeToggle"
 import { useSession } from "next-auth/react"
 
 export default function AIAssistantUI() {
   const { data: session, status } = useSession()
+  const { theme, setTheme } = useTheme()
 
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [collapsed, setCollapsed] = useState(() => {
@@ -465,17 +468,17 @@ export default function AIAssistantUI() {
 
   if (loading || status === "loading") {
     return (
-      <div className="h-screen w-full bg-white text-gray-900 flex items-center justify-center">
+      <div className="h-screen w-full bg-white dark:bg-gray-900 text-gray-900 dark:text-white flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-500 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading your conversations...</p>
+          <p className="text-gray-600 dark:text-gray-300">Loading your conversations...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="h-screen w-full bg-white text-gray-900">
+    <div className="h-screen w-full bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
       <div className="flex h-screen w-full">
         <Sidebar
           open={sidebarOpen}
@@ -498,7 +501,7 @@ export default function AIAssistantUI() {
 
         <main className="relative flex min-w-0 flex-1 flex-col">
           {/* Model Selection and Header */}
-          <div className="border-b border-gray-200 bg-white px-6 py-4">
+          <div className="border-b border-gray-200 bg-white dark:bg-gray-900 px-6 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2">
@@ -515,11 +518,12 @@ export default function AIAssistantUI() {
                     {selectedModel.name.charAt(0)}
                   </div>
                   <div>
-                    <h1 className="text-lg font-semibold text-gray-900">{selectedModel.name}</h1>
-                    <p className="text-sm text-gray-600">{selectedModel.description}</p>
+                    <h1 className="text-lg font-semibold text-gray-900 dark:text-white">{selectedModel.name}</h1>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">{selectedModel.description}</p>
                   </div>
                 </div>
               </div>
+              <ThemeToggle theme={theme} setTheme={setTheme} />
             </div>
           </div>
 

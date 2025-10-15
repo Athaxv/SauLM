@@ -7,10 +7,11 @@ import {
   useRef,
   useEffect,
 } from "react";
-import { Pencil, RefreshCw, Check, X, Square } from "lucide-react";
+import { Pencil, RefreshCw, Check, X, Square, Download } from "lucide-react";
 import Message from "./Message";
 import Composer from "./Composer";
 import { cls, timeAgo } from "./utils";
+import jsPDF from "jspdf";
 
 function ThinkingMessage({ onPause, selectedModel }) {
   return (
@@ -106,6 +107,44 @@ const ChatPane = forwardRef(function ChatPane(
     cancelEdit();
   }
 
+  function exportToPDF() {
+    if (!conversation || messages.length === 0) return;
+
+    const doc = new jsPDF();
+    let yPosition = 20;
+    const lineHeight = 10;
+    const pageHeight = doc.internal.pageSize.height;
+
+    // Title
+    doc.setFontSize(18);
+    doc.text(`Chat: ${conversation.title}`, 20, yPosition);
+    yPosition += lineHeight * 2;
+
+    // Metadata
+    doc.setFontSize(12);
+    doc.text(`Exported on: ${new Date().toLocaleDateString()}`, 20, yPosition);
+    yPosition += lineHeight;
+    doc.text(`Total Messages: ${count}`, 20, yPosition);
+    yPosition += lineHeight * 2;
+
+    // Messages
+    doc.setFontSize(10);
+    messages.forEach((msg) => {
+      if (yPosition > pageHeight - 20) {
+        doc.addPage();
+        yPosition = 20;
+      }
+
+      const role = msg.role === 'user' ? 'You' : 'Assistant';
+      const content = `${role}: ${msg.content}`;
+      const lines = doc.splitTextToSize(content, 170); // Wrap text
+      doc.text(lines, 20, yPosition);
+      yPosition += lines.length * lineHeight + 5;
+    });
+
+    doc.save(`${conversation.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_chat.pdf`);
+  }
+
   return (
     <div className="flex h-full min-h-0 flex-1 flex-col">
       <div className="flex-1 space-y-5 overflow-y-auto px-4 py-6 sm:px-8">
@@ -114,8 +153,15 @@ const ChatPane = forwardRef(function ChatPane(
             {conversation.title}
           </span>
         </div>
-        <div className="mb-4 text-sm text-gray-600">
-          Updated {timeAgo(conversation.updatedAt)} · {count} messages
+        <div className="mb-4 flex items-center justify-between text-sm text-gray-600">
+          <span>Updated {timeAgo(conversation.updatedAt)} · {count} messages</span>
+          <button
+            onClick={exportToPDF}
+            className="inline-flex items-center gap-1 rounded-full border border-gray-300 px-3 py-1.5 text-xs text-gray-700 hover:bg-gray-50 transition-colors"
+            title="Export chat as PDF"
+          >
+            <Download className="h-4 w-4" /> Export PDF
+          </button>
         </div>
 
         {messages.length === 0 ? (

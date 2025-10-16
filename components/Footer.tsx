@@ -1,4 +1,5 @@
 
+"use client";
 
 
 
@@ -26,10 +27,10 @@ export default function Footer() {
               Product
             </h3>
             <ul className="space-y-1">
-              <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400">Features</a></li>
-              <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400">Use Cases</a></li>
-              <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400">Pricing</a></li>
-              <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400">FAQ</a></li>
+              <li><a href="#document-analysis" className="hover:text-blue-600 dark:hover:text-blue-400" onClick={e => {e.preventDefault(); document.getElementById('document-analysis')?.scrollIntoView({ behavior: 'smooth' });}}>Document Analysis</a></li>
+              <li><a href="#smart-insights" className="hover:text-blue-600 dark:hover:text-blue-400" onClick={e => {e.preventDefault(); document.getElementById('smart-insights')?.scrollIntoView({ behavior: 'smooth' });}}>Smart Insights</a></li>
+              <li><a href="#security" className="hover:text-blue-600 dark:hover:text-blue-400" onClick={e => {e.preventDefault(); document.getElementById('security')?.scrollIntoView({ behavior: 'smooth' });}}>Security</a></li>
+              <li><a href="#fast-processing" className="hover:text-blue-600 dark:hover:text-blue-400" onClick={e => {e.preventDefault(); document.getElementById('fast-processing')?.scrollIntoView({ behavior: 'smooth' });}}>Fast Processing</a></li>
             </ul>
           </div>
           <div>
@@ -37,10 +38,10 @@ export default function Footer() {
               Company
             </h3>
             <ul className="space-y-1">
-              <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400">About</a></li>
-              <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400">Blog</a></li>
-              <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400">Careers</a></li>
-              <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400">Contact</a></li>
+              <li><a href="#about" className="hover:text-blue-600 dark:hover:text-blue-400" onClick={e => {e.preventDefault(); document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });}}>About</a></li>
+              <li><a href="/blog" className="hover:text-blue-600 dark:hover:text-blue-400">Blog</a></li>
+              <li><a href="/careers" className="hover:text-blue-600 dark:hover:text-blue-400">Careers</a></li>
+              <li><a href="#contact" className="hover:text-blue-600 dark:hover:text-blue-400" onClick={e => {e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });}}>Contact</a></li>
             </ul>
           </div>
         </div>
@@ -51,16 +52,16 @@ export default function Footer() {
             Follow us
           </h3>
           <div className="flex gap-4">
-            <a href="#" className="hover:text-blue-600 dark:hover:text-blue-400" aria-label="GitHub">
+            <a href="https://github.com/" target="_blank" rel="noreferrer" className="hover:text-blue-600 dark:hover:text-blue-400" aria-label="GitHub">
               <Github size={20} />
             </a>
-            <a href="#" className="hover:text-blue-600 dark:hover:text-blue-400" aria-label="Twitter">
+            <a href="https://twitter.com/" target="_blank" rel="noreferrer" className="hover:text-blue-600 dark:hover:text-blue-400" aria-label="Twitter">
               <Twitter size={20} />
             </a>
-            <a href="#" className="hover:text-blue-600 dark:hover:text-blue-400" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer" className="hover:text-blue-600 dark:hover:text-blue-400" aria-label="LinkedIn">
               <Linkedin size={20} />
             </a>
-            <a href="#" className="hover:text-blue-600 dark:hover:text-blue-400" aria-label="Mail">
+            <a href="mailto:hello@saulm.ai" className="hover:text-blue-600 dark:hover:text-blue-400" aria-label="Mail">
               <Mail size={20} />
             </a>
           </div>

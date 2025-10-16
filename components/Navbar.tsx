@@ -53,9 +53,9 @@ export default function NavbarDemo() {
   ];
 
   const simpleNavItems = [
-    { name: "About", link: "#specifications" },
+  { name: "About", link: "#about" },
     { name: "Testimonials", link: "#testimonials" },
-    { name: "Contact", link: "#newsletter" },
+    { name: "Contact", link: "#contact" },
   ];
 
   return (
@@ -87,7 +87,16 @@ export default function NavbarDemo() {
             
             {simpleNavItems.map((item) => (
               <NavigationMenuItem key={item.name}>
-                <NavigationMenuLink href={item.link} className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
+                <NavigationMenuLink 
+                  href={item.link} 
+                  className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
+                  onClick={e => {
+                    if (item.link.startsWith('#')) {
+                      e.preventDefault();
+                      document.getElementById(item.link.replace('#',''))?.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                >
                   {item.name}
                 </NavigationMenuLink>
               </NavigationMenuItem>
@@ -133,7 +142,13 @@ export default function NavbarDemo() {
                   <a
                     key={feature.title}
                     href={feature.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={e => {
+                      setIsMobileMenuOpen(false);
+                      if (feature.href.startsWith('#')) {
+                        e.preventDefault();
+                        document.getElementById(feature.href.replace('#',''))?.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    }}
                     className="flex items-center gap-3 p-2 rounded-md hover:bg-gray-50"
                   >
                     <feature.icon className="h-4 w-4 text-red-500" />
@@ -151,7 +166,13 @@ export default function NavbarDemo() {
                 <a
                   key={item.name}
                   href={item.link}
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={e => {
+                    setIsMobileMenuOpen(false);
+                    if (item.link.startsWith('#')) {
+                      e.preventDefault();
+                      document.getElementById(item.link.replace('#',''))?.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
                   className="block px-2 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md"
                 >
                   {item.name}

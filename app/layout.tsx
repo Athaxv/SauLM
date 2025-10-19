@@ -57,10 +57,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${brockmann.variable} ${inter.variable} ${playfairDisplay.variable} antialiased`}
-        suppressHydrationWarning={true}
       >
         <Provider>
           {children}
